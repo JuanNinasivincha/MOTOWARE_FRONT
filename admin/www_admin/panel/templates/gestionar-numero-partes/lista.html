@@ -1,0 +1,51 @@
+{% extends '../index_master.html' %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <h1>Lista de Número de Partes Registrados</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Dientes</th>
+                <th scope="col">Aros</th>
+                <th scope="col">Litros</th>
+                <th scope="col">Número de Partes</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for n in npartes %}
+            <tr>
+                <th scope="row">{{ n.id }}</th>
+                <td>{{ n.dientes }}</td>
+                <td>{{ n.aros }}</td>
+                <td>{{ n.litros }}</td>
+                <td>{{ n.numero_partes }}</td>
+            </tr>
+            {% endfor %}
+            <!-- Datos de ejemplo -->
+            <tr>
+                <th scope="row">1</th>
+                <td>32</td>
+                <td>1</td> <!-- Asumiendo que solo puede haber un valor -->
+                <td>3.5</td> <!-- Asumiendo un valor de litros -->
+                <td>1001</td> <!-- Número de partes -->
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>25</td>
+                <td>2</td>
+                <td>2.2</td>
+                <td>1002</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>20</td>
+                <td>3</td>
+                <td>1.8</td>
+                <td>1003</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

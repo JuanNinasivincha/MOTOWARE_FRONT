@@ -12,5 +12,15 @@ class Usuarios(models.Model):
     fecha_nacimiento = models.DateField(null = True)
     fecha_registro = models.DateTimeField(auto_now_add = True, null = True)
 
+
+class NumPartes(models.Model):
+    id = models.AutoField(primary_key=True)
+    dientes = models.IntegerField()
+    aros = models.DecimalField(max_digits=10, decimal_places=2)
+    litros = models.DecimalField(max_digits=10, decimal_places=2)
+    numero_partes = models.IntegerField(unique=True)
+
+
     class Meta:
         db_table = 'usuarios'
+        db_table = 'NumPartes'

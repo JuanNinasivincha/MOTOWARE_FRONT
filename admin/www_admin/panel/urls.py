@@ -12,4 +12,9 @@ urlpatterns = [
     path('actualizar',views.actualizar,name = "actualizar"),
     path('eliminar',views.eliminar,name = "eliminar"),
 
+
+    path('listarnum',views.listar_numero_partes,name = "listarnum"),
+    path('agregarnum',views.agregarnum,name = "agregarnum"),
+
+
 ]
