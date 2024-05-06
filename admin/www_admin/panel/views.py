@@ -29,6 +29,11 @@ def listar_numero_partes(request):
     datos = {'Numero de partes': numpartes }
     return render(request , "gestionar-numero-partes/lista.html",datos)
 
+def listarrep(request):
+    numpartes = NumPartes.objects.all()
+    datos = {'Repuestos': numpartes }
+    return render(request , "gestionar-repuestos/lista.html",datos)
+
 
 
 

@@ -16,5 +16,10 @@ urlpatterns = [
     path('listarnum',views.listar_numero_partes,name = "listarnum"),
     path('agregarnum',views.agregarnum,name = "agregarnum"),
 
+    path('listarrep',views.listarrep,name = "listarrep"),
+
+    
+
+
 
 ]

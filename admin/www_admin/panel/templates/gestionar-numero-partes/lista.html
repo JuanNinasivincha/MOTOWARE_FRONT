@@ -2,50 +2,62 @@
 
 {% block content %}
 <div class="right_col" role="main">
-    <h1>Lista de Número de Partes Registrados</h1>
-    <table class="table">
+    <h1 class="titulo">Lista de Número de Partes Registrados</h1>
+    <!-- Contenedor flex para alinear elementos -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="input-group" style="max-width: 900px;">
+            <input type="text" class="form-control" placeholder="Buscar por número de partes" aria-label="Buscar" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2"><i class="fa fa-search"></i></span>
+            </div>
+        </div>
+        <!-- Botón Registrar -->
+        <button type="button" class="btn btn-primary mr-5">Registrar</button>
+    </div>
+    
+    <table class="table mt-3" style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Dientes</th>
-                <th scope="col">Aros</th>
-                <th scope="col">Litros</th>
+                <th scope="col">Nombre</th>
                 <th scope="col">Número de Partes</th>
+                
             </tr>
         </thead>
         <tbody>
             {% for n in npartes %}
             <tr>
                 <th scope="row">{{ n.id }}</th>
-                <td>{{ n.dientes }}</td>
-                <td>{{ n.aros }}</td>
-                <td>{{ n.litros }}</td>
+                <td>{{ n.nombre }}</td>
                 <td>{{ n.numero_partes }}</td>
             </tr>
             {% endfor %}
             <!-- Datos de ejemplo -->
             <tr>
                 <th scope="row">1</th>
-                <td>32</td>
-                <td>1</td> <!-- Asumiendo que solo puede haber un valor -->
-                <td>3.5</td> <!-- Asumiendo un valor de litros -->
-                <td>1001</td> <!-- Número de partes -->
+                <td>Aceite</td>
+                <td>AcLT</td> 
             </tr>
             <tr>
                 <th scope="row">2</th>
-                <td>25</td>
-                <td>2</td>
-                <td>2.2</td>
-                <td>1002</td>
+                <td>Llanta</td>
+                <td>LlAr</td>
             </tr>
             <tr>
                 <th scope="row">3</th>
-                <td>20</td>
-                <td>3</td>
-                <td>1.8</td>
-                <td>1003</td>
+                <td>Sellantar</td>
+                <td>SeLT</td>
             </tr>
         </tbody>
     </table>
 </div>
+
+<style>
+    .titulo {
+        font-size: 24px; 
+        font-family: 'Arial', sans-serif; 
+        color: #007bff; 
+    }
+</style>
+
 {% endblock %}
