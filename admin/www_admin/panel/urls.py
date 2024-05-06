@@ -17,6 +17,8 @@ urlpatterns = [
     path('agregarnum',views.agregarnum,name = "agregarnum"),
 
     path('listarrep',views.listarrep,name = "listarrep"),
+    path('visualizarrep',views.visualizarrep,name = "visualizarrep"),
+    path('registrarrep',views.registrarrep,name = "registrarrep"),
 
     
 

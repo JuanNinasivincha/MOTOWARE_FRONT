@@ -1,0 +1,42 @@
+{% extends '../index_master.html' %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <h1 class="titulo">Detalles del Repuesto</h1>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">ID: {{ repuesto.id }}</h5>
+                    <p class="card-text">Número de Marca: {{ repuesto.numero_marca }}</p>
+                    <p class="card-text">Código de Marca: {{ repuesto.codigo_marca }}</p>
+                    <p class="card-text">Grado de Viscosidad: {{ repuesto.grado_viscosidad }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">Tipo de Motor: {{ repuesto.tipo_motor }}</p>
+                    <p class="card-text">Calidad: {{ repuesto.calidad }}</p>
+                    <p class="card-text">Litros: {{ repuesto.litros }}</p>
+                    <p class="card-text">Estado: {{ repuesto.estado }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="{% url 'listarrep' %}" class="btn btn-primary mt-3">Volver a la lista de repuestos</a>
+</div>
+
+<style>
+    .titulo {
+        font-size: 24px; 
+        font-family: 'Arial', sans-serif; 
+        color: #007bff; 
+    }
+
+</style>
+
+{% endblock %}

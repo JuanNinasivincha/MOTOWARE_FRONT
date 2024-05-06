@@ -35,6 +35,26 @@ def listarrep(request):
     return render(request , "gestionar-repuestos/lista.html",datos)
 
 
+def visualizarrep(request):
+    numpartes = NumPartes.objects.all()
+    datos = {'Repuestos': numpartes }
+    return render(request, 'gestionar-repuestos/visualizar_detalles.html', datos)
+
+
+def registrarrep(request):
+    if request.method == 'POST':
+        if request.POST.get('nombre') and request.POST.get('apellido') and request.POST.get('correo') and request.POST.get('telefono') and request.POST.get('telefono') and request.POST.get('fecha_nacimiento'):
+           user = Usuarios()
+           user.nombre = request.POST.get('nombre')
+           user.apellido = request.POST.get('apellido')
+           user.correo =  request.POST.get('correo')
+           user.telefono =  request.POST.get('telefono')
+           user.fecha_nacimiento = request.POST.get('fecha_nacimiento')
+           user.save()
+           return redirect('listar')
+    else :
+        return render(request , "gestionar-repuestos/add.html")
+
 
 
 def agregar(request):
