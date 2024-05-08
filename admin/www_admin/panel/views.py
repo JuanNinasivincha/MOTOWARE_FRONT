@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse,  HttpResponseNotFound
 from .models import Usuarios, NumPartes
 from django.shortcuts import redirect
 import requests
@@ -48,29 +48,63 @@ def listarreparos(request):
     return render(request , "gestionar-repuestos/listararos.html", {'datos': datos_api})
 
 def visualizarreparos(request,repuesto_id):
-    repuesto_data = None
     url_backend = f'https://tesis-motoware-back.onrender.com/obtener_repuestoAros/{repuesto_id}'
-    response = requests.get(url_backend)
-    if response.status_code == 200:
+    try:
+        response = requests.get(url_backend)
         repuesto_data = response.json()
+
+    except requests.RequestException as e:
+        print(f"Error al obtener los datos del repuesto: {e}")
+        return HttpResponseNotFound("No se pudo obtener el repuesto. Por favor, inténtalo de nuevo más tarde.")
+   
+    if repuesto_data is None:
+         return HttpResponseNotFound("No se encontró ningún repuesto con el ID proporcionado.")
     return render(request, 'gestionar-repuestos/visualizardetallesaro.html', {'repuesto_data' : repuesto_data})
     
 
-
+def visualizarrep(request,repuesto_id):
+    repuesto_data = None
+    url_backend = f'https://tesis-motoware-back.onrender.com/obtener_repuesto_id/{repuesto_id}'
+    response = requests.get(url_backend)
+    if response.status_code == 200:
+        repuesto_data = response.json()
+    return render(request, 'gestionar-repuestos/visualizarrepgeneral.html', {'repuesto_data' : repuesto_data})
 
 def registrarrep(request):
     if request.method == 'POST':
-        if request.POST.get('nombre') and request.POST.get('apellido') and request.POST.get('correo') and request.POST.get('telefono') and request.POST.get('telefono') and request.POST.get('fecha_nacimiento'):
-           user = Usuarios()
-           user.nombre = request.POST.get('nombre')
-           user.apellido = request.POST.get('apellido')
-           user.correo =  request.POST.get('correo')
-           user.telefono =  request.POST.get('telefono')
-           user.fecha_nacimiento = request.POST.get('fecha_nacimiento')
-           user.save()
-           return redirect('listar')
-    else :
-        return render(request , "gestionar-repuestos/add.html")
+        ID = request.POST.get('ID')
+        partesLi= request.POST.get('partesli')
+        codigoMarca = request.POST.get('codigoMarca')
+        gradoViscosidad = request.POST.get('gradoViscosidad')
+        tipoMotor = request.POST.get('tipoMotor')
+        calidad = request.POST.get('calidad')
+        Litros = request.POST.get('Litros')
+        fechaRegistro = request.POST.get('fechaRegistro')
+        Estado = request.POST.get('Estado')                            
+
+        url_api_fastapi = 'https://tesis-motoware-back.onrender.com/repuesto_Litros'
+         
+        data = {
+            "ID" : ID,
+            "partesLi": partesLi,
+            "codigoMarca": codigoMarca ,
+            "gradoViscosidad": gradoViscosidad,
+            "tipoMotor": tipoMotor,
+            "calidad": calidad,
+            "Litros": Litros,
+            "fechaRegistro": fechaRegistro,
+            "Estado": Estado,
+
+        }
+       
+        response = requests.post(url_api_fastapi, json=data)
+        if response.status_code == 200:
+           return redirect('listarlitros')
+        else:
+           return render(request, "gestionar-repuestos/listarlitros.html", {'error_message': 'Hubo un problema al registrar el repuesto litros.'})
+    else:
+        return render(request, "gestionar-repuestos/add.html")
+
 
 
 
@@ -88,8 +122,7 @@ def agregar(request):
     else :
         return render(request , "gestionar-usuarios/add.html")
 
-from django.shortcuts import render, redirect
-import requests
+
 
 def agregarnumpartes(request):
     if request.method == 'POST':

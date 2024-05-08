@@ -23,12 +23,11 @@ urlpatterns = [
     path('listarrepgeneral',views.listarrepgeneral,name = "listarrep"),
 
 
-    #path('visualizarrepgeneral/<int:repuesto_id>',views.visualizarrep,name = "visualizarrep"),
-    path('visualizarreparos/<int:repuesto_id>',views.visualizarreparos,name = "visualizarreparos"),
+    path('visualizarrepgeneral/<int:repuesto_id>',views.visualizarrep,name = "visualizarrepgeneral"),
+    path('visualizarreparos/<str:repuesto_id>',views.visualizarreparos,name = "visualizarreparos"),
     #path('visualizarreplit/<int:repuesto_id>',views.visualizarrep,name = "visualizarrep"),
 
-    path('registrarrep',views.registrarrep,name = "registrarrep"),
-
+    path('registrarrep',views.registrarrep,name = "registrarrep")
     
 
 

@@ -36,7 +36,7 @@
                 <td>{{ dato.estado }}</td>
                 <td>{{ dato.descripción}}</td>
                 <td>
-                    <a href="{% url 'visualizarreparos'  %}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> Visualizar Detalles</a>
+                    <a href="{% url 'visualizarreparos' dato.id   %}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> Visualizar Detalles</a>
                 </td>
             </tr>
             {% endfor %}

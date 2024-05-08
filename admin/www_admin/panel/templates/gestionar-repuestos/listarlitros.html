@@ -21,9 +21,15 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Número de Partes</th>
+                    <th scope="col">Código de marca</th>
+                    <th scope="col">Grado de viscosidad</th>
+                    <th scope="col">Tipo de motor</th>
+                    <th scope="col">Calidad</th>
+                    <th scope="col">Litros</th>
                     <th scope="col">Fecha de registro</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Descripción</th>
+
                     <th scope="col">Acciones</th> 
                 </tr>
             </thead>
@@ -32,6 +38,11 @@
                 <tr>
                     <th scope="row">{{ dato.id }}</th>
                     <td>{{ dato.partesli}}</td>
+                    <td>{{ dato.codigomarca}}</td>
+                    <td>{{ dato.gradoviscosidad}}</td>
+                    <td>{{ dato.tipomotor}}</td>
+                    <td>{{ dato.calidad}}</td>
+                    <td>{{ dato.litros}}</td>
                     <td>{{ dato.fecharegistro}}</td>
                     <td>{{ dato.estado }}</td>
                     <td>{{ dato.descripción}}</td>
