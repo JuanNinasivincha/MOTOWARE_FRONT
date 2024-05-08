@@ -1,0 +1,58 @@
+
+{% extends '../index_master.html' %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <h1 class="titulo">Registrar Repuesto Litros</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="ID">ID:</label>
+            <input type="text" class="form-control" id="ID" name="ID">
+        </div>
+        <div class="form-group">
+            <label for="partesAr">Partes Aro:</label>
+            <input type="text" class="form-control" id="partesAr" name="partesAr">
+        </div>
+        <div class="form-group">
+            <label for="medidaA1">Medida Aro 1:</label>
+            <input type="number" class="form-control" id="medidaA1" name="medidaA1">
+        </div>
+        <div class="form-group">
+            <label for="medidaA2">Medida Aro 2:</label>
+            <input type="number" class="form-control" id="medidaA2" name="medidaA2">
+        </div>
+        <div class="form-group">
+            <label for="medidaA3">Medida Aro 3:</label>
+            <input type="number" class="form-control" id="medidaA3" name="medidaA3">
+        </div>
+        <div class="form-group">
+            <label for="codigoLlanta">Código de Llanta:</label>
+            <input type="text" class="form-control" id="codigoLlanta" name="codigoLlanta">
+        </div>
+        <div class="form-group">
+            <label for="Litros">Camara:</label>
+            <input type="text" class="form-control" id="Litros" name="Litros">
+        </div>
+        <div class="form-group">    
+            <label for="fechaRegistro">Fecha de Registro:</label>
+            <input type="date" class="form-control" id="fechaRegistro" name="fechaRegistro">
+        </div>
+        <div class="form-group">    
+            <label for="Estado">Estado:</label>
+            <input type="text" class="form-control" id="Estado" name="Estado">
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+</div>
+
+<style>
+    .titulo {
+        font-size: 24px; 
+        font-family: 'Arial', sans-serif; 
+        color: #007bff; 
+    }
+</style>
+
+{% endblock %}
+

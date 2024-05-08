@@ -13,30 +13,30 @@
                             <input type="text" id="id" class="form-control" readonly value = {{repuesto_data.id}}>
                         </div>
                         <div class="form-group">
-                            <label for="partesar">Partes Aro:</label>
-                            <input type="text" id="partesar" class="form-control" readonly value = {{repuesto_data.partesar}}> 
+                            <label for="partesli">Partes Litros:</label>
+                            <input type="text" id="partesli" class="form-control" readonly value = {{repuesto_data.partesli}}> 
                         </div>
                         <div class="form-group">
-                            <label for="medidaa1">Medida Aro 1:</label>
-                            <input type="number" id="medidaa1" class="form-control" readonly value = {{repuesto_data.medidaa1}}>
+                            <label for="codigomarca">Código de marca:</label>
+                            <input type="text" id="codigomarca" class="form-control" readonly value = {{repuesto_data.codigomarca}}>
                         </div>
                         <div class="form-group">
-                            <label for="medidaa2">Medida Aro 2:</label>
-                            <input type="number" id="medidaa2" class="form-control" readonly value  = {{repuesto_data.medidaa2}}>
+                            <label for="gradoviscosidad">Grado de viscosidad:</label>
+                            <input type="text" id="gradoviscosidad" class="form-control" readonly value  = {{repuesto_data.gradoviscosidad}}>
                         </div>
                         <div class="form-group">
-                            <label for="medidaa3">Medida Aro 3:</label>
-                            <input type="number" id="medidaa3" class="form-control" readonly value = {{repuesto_data.medidaa3}}>
+                            <label for="tipomotor">Tipo de motor:</label>
+                            <input type="number" id="tipomotor" class="form-control" readonly value = {{repuesto_data.tipomotor}}>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="codigollanta">Codigo de llanta:</label>
-                            <input type="text" id="codigollanta" class="form-control" readonly value = {{repuesto_data.codigollanta}}>
+                            <label for="calidad">Calidad:</label>
+                            <input type="text" id="calidad" class="form-control" readonly value = {{repuesto_data.calidad}}>
                         </div>
                         <div class="form-group">
-                            <label for="camara">Camara:</label>
-                            <input type="text" id="camara" class="form-control" readonly value = {{repuesto_data.camara}}>
+                            <label for="litros">Litros:</label>
+                            <input type="text" id="litros" class="form-control" readonly value = {{repuesto_data.litros}}>
                         </div>
                         <div class="form-group">
                             <label for="fecharegistro">Fecha de Registro:</label>
@@ -61,13 +61,13 @@
         
 
         document.getElementById("id").value = repuesto_data[0].id;
-        document.getElementById("partesar").value = repuesto_data[0].partesar;
-        document.getElementById("medidaa1").value = repuesto_data[0].medidaa1;
-        document.getElementById("medidaa2").value = repuesto_data[0].medidaa2;
-        document.getElementById("medidaa3").value = repuesto_data[0].medidaa3;
-        document.getElementById("codigollanta").value = repuesto_data[0].codigollanta;
-        document.getElementById("camara").value = repuesto_data[0].camara;
-        document.getElementById("fecharegistro").value = repuesto_data[0].fecharegistro;
+        document.getElementById("partesli").value = repuesto_data[0].partesli;
+        document.getElementById("codigomarca").value = repuesto_data[0].codigomarca;
+        document.getElementById("gradoviscosidad").value = repuesto_data[0].gradoviscosidad;
+        document.getElementById("tipomotor").value = repuesto_data[0].tipomotor;
+        document.getElementById("calidad").value = repuesto_data[0].calidad;
+        document.getElementById("litros").value = repuesto_data[0].camara;
+        document.getElementById("fecharegistro").value = repuesto_data[0].litros;
         document.getElementById("estado").value = repuesto_data[0].estado ? 'Activo' : 'Inactivo';
         document.getElementById("descripción").value = repuesto_data[0].descripción;
 
@@ -75,6 +75,7 @@
     </script>
     {% endif %}
 
-    <button><a href="{% url 'listarreparos' %}" class="btn btn-primary">Volver a la lista de repuestos</a></button>
+    <button><a href="{% url 'listarreplit' %}" class="btn btn-primary">Volver a la lista de repuestos</a></button>
 </div>
+        
 {% endblock %}

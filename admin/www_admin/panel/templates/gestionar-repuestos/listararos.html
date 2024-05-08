@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <a href="{% url 'registrarrep' %}" class="btn btn-primary mr-5">Registrar</a>
+        <a href="{% url 'registrarreparo' %}" class="btn btn-primary mr-5">Registrar</a>
 
     </div>
     
@@ -36,9 +36,11 @@
                 <td>{{ dato.estado }}</td>
                 <td>{{ dato.descripción}}</td>
                 <td>
-                    <a href="{% url 'visualizarreparos' dato.id   %}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> Visualizar Detalles</a>
+                    <a href="{% url 'visualizarreparos' dato.id   %}" class="btn btn-info btn-sm">
+                        <i class="fa fa-eye"></i>
+                    </a>
                 </td>
-            </tr>
+                
             {% endfor %}
         </tbody>
     </table>

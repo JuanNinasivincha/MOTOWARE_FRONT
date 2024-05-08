@@ -6,7 +6,7 @@
         <!-- Contenedor flex para alinear elementos -->
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div class="input-group" style="max-width: 900px;">
-                <input type="text" class="form-control" placeholder="Buscar por marca" aria-label="Buscar" aria-describedby="basic-addon2">
+                <input type="text" class="form-control" placeholder="Buscar por número de partes" aria-label="Buscar" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <span class="input-group-text" id="basic-addon2"><i class="fa fa-search"></i></span>
                 </div>
@@ -47,7 +47,10 @@
                     <td>{{ dato.estado }}</td>
                     <td>{{ dato.descripción}}</td>
                     <td>
-                   
+                        <a href="{% url 'visualizarreplit' dato.id   %}" class="btn btn-info btn-sm">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                    </td>
                         
                     </td>
                 </tr>

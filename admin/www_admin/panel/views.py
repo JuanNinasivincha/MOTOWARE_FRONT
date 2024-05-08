@@ -63,12 +63,35 @@ def visualizarreparos(request,repuesto_id):
     
 
 def visualizarrep(request,repuesto_id):
-    repuesto_data = None
+  
     url_backend = f'https://tesis-motoware-back.onrender.com/obtener_repuesto_id/{repuesto_id}'
-    response = requests.get(url_backend)
-    if response.status_code == 200:
+    try:
+        response = requests.get(url_backend)
         repuesto_data = response.json()
+
+    except requests.RequestException as e:
+        print(f"Error al obtener los datos del repuesto: {e}")
+        return HttpResponseNotFound("No se pudo obtener el repuesto. Por favor, inténtalo de nuevo más tarde.")
+   
+    if repuesto_data is None:
+         return HttpResponseNotFound("No se encontró ningún repuesto con el ID proporcionado.")
     return render(request, 'gestionar-repuestos/visualizarrepgeneral.html', {'repuesto_data' : repuesto_data})
+
+def visualizarreplit(request,repuesto_id):
+    
+    url_backend = f'https://tesis-motoware-back.onrender.com/obtener_repuestoLitros/{repuesto_id}'
+    try:
+        response = requests.get(url_backend)
+        repuesto_data = response.json()
+
+    except requests.RequestException as e:
+        print(f"Error al obtener los datos del repuesto: {e}")
+        return HttpResponseNotFound("No se pudo obtener el repuesto. Por favor, inténtalo de nuevo más tarde.")
+   
+    if repuesto_data is None:
+         return HttpResponseNotFound("No se encontró ningún repuesto con el ID proporcionado.")
+    return render(request, 'gestionar-repuestos/visualizardetallelitros.html', {'repuesto_data' : repuesto_data})
+
 
 def registrarrep(request):
     if request.method == 'POST':
@@ -82,7 +105,7 @@ def registrarrep(request):
         fechaRegistro = request.POST.get('fechaRegistro')
         Estado = request.POST.get('Estado')                            
 
-        url_api_fastapi = 'https://tesis-motoware-back.onrender.com/repuesto_Litros'
+        url_api_fastapi = 'https://tesis-motoware-back.onrender.com/registrar_repuestoLitros'
          
         data = {
             "ID" : ID,
@@ -104,6 +127,42 @@ def registrarrep(request):
            return render(request, "gestionar-repuestos/listarlitros.html", {'error_message': 'Hubo un problema al registrar el repuesto litros.'})
     else:
         return render(request, "gestionar-repuestos/add.html")
+
+
+def registrarreparo(request):
+    if request.method == 'POST':
+        ID = request.POST.get('ID')
+        partesAr= request.POST.get('partesAr')
+        medidaA1 = request.POST.get('medidaA1')
+        medidaA2 = request.POST.get('medidaA2')
+        medidaA3= request.POST.get('medidaA3')
+        codigoLlanta= request.POST.get('codigoLlanta')
+        camara = request.POST.get('camara')
+        fechaRegistro = request.POST.get('fechaRegistro')
+        Estado = request.POST.get('Estado')                            
+
+        url_api_fastapi = 'https://tesis-motoware-back.onrender.com/registrar_repuestoAros'
+         
+        data = {
+            "ID" : ID,
+            "partesAr": partesAr,
+            "medidaA1": medidaA1 ,
+            "medidaA2": medidaA2,
+            "medidaA3": medidaA3,
+            "codigoLlanta": codigoLlanta,
+            "Camara": camara,
+            "fechaRegistro": fechaRegistro,
+            "Estado": Estado,
+
+        }
+       
+        response = requests.post(url_api_fastapi, json=data)
+        if response.status_code == 200:
+           return redirect('listararos')
+        else:
+           return render(request, "gestionar-repuestos/listararos.html", {'error_message': 'Hubo un problema al registrar el repuesto litros.'})
+    else:
+        return render(request, "gestionar-repuestos/addaro.html")
 
 
 

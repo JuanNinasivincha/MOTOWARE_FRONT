@@ -20,16 +20,16 @@ urlpatterns = [
 
     path('listarreplit',views.listarreplit,name = "listarreplit"),
     path('listarreparos',views.listarreparos,name = "listarreparos"),
-    path('listarrepgeneral',views.listarrepgeneral,name = "listarrep"),
+    path('listarrepgeneral',views.listarrepgeneral,name = "listarrepgeneral"),
 
 
     path('visualizarrepgeneral/<int:repuesto_id>',views.visualizarrep,name = "visualizarrepgeneral"),
     path('visualizarreparos/<str:repuesto_id>',views.visualizarreparos,name = "visualizarreparos"),
-    #path('visualizarreplit/<int:repuesto_id>',views.visualizarrep,name = "visualizarrep"),
+    path('visualizarreplit/<str:repuesto_id>',views.visualizarreplit,name = "visualizarreplit"),
 
-    path('registrarrep',views.registrarrep,name = "registrarrep")
+    path('registrarrep',views.registrarrep,name = "registrarrep"),
+    path('registrarreparo',views.registrarreparo,name = "registrarreparo")
     
-
-
+    
 
 ]
