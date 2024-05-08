@@ -24,3 +24,5 @@ class NumPartes(models.Model):
     class Meta:
         db_table = 'usuarios'
         db_table = 'NumPartes'
+
+

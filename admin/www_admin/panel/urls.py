@@ -18,8 +18,15 @@ urlpatterns = [
     path('listarnum',views.listar_numero_partes,name = "listarnum"),
     path('agregarnum',views.agregarnumpartes,name = "agregarnum"),
 
-    path('listarrep',views.listarrep,name = "listarrep"),
-    path('visualizarrep',views.visualizarrep,name = "visualizarrep"),
+    path('listarreplit',views.listarreplit,name = "listarreplit"),
+    path('listarreparos',views.listarreparos,name = "listarreparos"),
+    path('listarrepgeneral',views.listarrepgeneral,name = "listarrep"),
+
+
+    #path('visualizarrepgeneral/<int:repuesto_id>',views.visualizarrep,name = "visualizarrep"),
+    path('visualizarreparos/<int:repuesto_id>',views.visualizarreparos,name = "visualizarreparos"),
+    #path('visualizarreplit/<int:repuesto_id>',views.visualizarrep,name = "visualizarrep"),
+
     path('registrarrep',views.registrarrep,name = "registrarrep"),
 
     

@@ -1,0 +1,75 @@
+{% extends '../index_master.html' %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <h1 class="titulo">Detalles del repuesto </h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 d-flex flex-column justify-content-between">
+                <div>
+                    <label for="id">ID:</label>
+                    <input type="text" id="id" readonly>
+                </div>
+                <div>
+                    <label for="partesar">Partes Aro:</label>
+                    <input type="text" id="partesar" readonly>
+                </div>
+                <div>
+                    <label for="medidaa1">Medida Aro 1:</label>
+                    <input type="text" id="medidaa1" readonly>
+                </div>
+                <div>
+                    <label for="medidaa2">Medida Aro 2:</label>
+                    <input type="text" id="medidaa2" readonly>
+                </div>
+                <div>
+                    <label for="medidaa3">Medida Aro 3:</label>
+                    <input type="text" id="medidaa3" readonly>
+                </div>
+            </div>
+            <div class="col-md-6 d-flex flex-column justify-content-between">
+                <div>
+                    <label for="codigollanta">Codigo de llanta:</label>
+                    <input type="text" id="codigollanta" readonly>
+                </div>
+                <div>
+                    <label for="camara">Camara:</label>
+                    <input type="text" id="camara" readonly>
+                </div>
+                <div>
+                    <label for="fecharegistro">Fecha de Registro:</label>
+                    <input type="text" id="fecharegistro" readonly>
+                </div>
+                <div>
+                    <label for="estado">Estado:</label>
+                    <input type="text" id="estado" readonly>
+                </div>
+                <div>
+                    <label for="descripción">Descripción:</label>
+                    <input type="text" id="descripción" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if repuesto_data %}
+    <script>
+        var repuesto_data = JSON.parse('{{ repuesto_data | escapejs }}');
+        
+        document.getElementById('id').value = repuesto_data.id;
+        document.getElementById('partesar').value = repuesto_data.partesar;
+        document.getElementById('medidaa1').value = repuesto_data.medidaa1;
+        document.getElementById('medidaa2').value = repuesto_data.medidaa2;
+        document.getElementById('medidaa3').value = repuesto_data.medidaa3
+        document.getElementById('codigollanta').value = repuesto_data.codigollanta;
+        document.getElementById('camara').value = repuesto_data.camara;
+        document.getElementById('fecharegistro').value = repuesto_data.fecharegistro;
+        document.getElementById('estado').value = repuesto_data.estado ;
+        document.getElementById('descripción').value = repuesto_data.descripción;
+    </script>
+ {% else %}  
+    <script>
+
+
+    </script>
+{% endif %}
+{% endblock %}

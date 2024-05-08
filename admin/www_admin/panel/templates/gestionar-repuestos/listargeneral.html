@@ -1,0 +1,60 @@
+{% extends '../index_master.html' %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <h1 class="titulo">Lista de Repuestos General</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="input-group" style="max-width: 900px;">
+            <input type="text" class="form-control" placeholder="Buscar por marca" aria-label="Buscar" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2"><i class="fa fa-search"></i></span>
+            </div>
+        </div>
+
+        <a href="{% url 'registrarrep' %}" class="btn btn-primary mr-5">Registrar</a>
+
+    </div>
+    
+    <table class="table mt-3" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Descripción General</th>
+                <th scope="col">País de Procedencia</th>s
+                <th scope="col">Fecha de registro</th>
+                <th scope="col">Número de partes</th>
+                <th scope="col">Acciones</th> 
+            </tr>
+        </thead>
+        <tbody>
+            {% for dato in datos %}
+            <tr>
+                <th scope="row">{{ dato.id }}</th>
+                <td>{{ dato.desgeneral}}</td>
+                <td>{{ dato.paisprocedencia}}</td>
+                <td>{{ dato.fecharegistro }}</td>
+                <td>{{ dato.númeropartes}}</td>
+                <td>
+               
+                    
+                </td>
+            </tr>
+            {% endfor %}
+        
+            
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .titulo {
+        font-size: 24px; 
+        font-family: 'Arial', sans-serif; 
+        color: #007bff; 
+    }
+
+</style>
+
+
+{% endblock %}
+

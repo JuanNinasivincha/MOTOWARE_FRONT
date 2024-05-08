@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" href="images/logo.png" type="image/png" />
+	  <link rel="icon" href="images/favicon.ico " type= "image/ico"/>
 
   
   <title>MOTOWARE | ADMIN {% block title %}{% endblock %}</title>
@@ -49,15 +49,15 @@
             <div class="clearfix"></div>
 
           
-
-            <br />
+            
+            <br/>
 
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a href = "http://localhost:8000"><i class="fa fa-home"></i> Home </a>
+                  <li><a href = "http://localhost:8000" ><i class="fa fa-home"></i> Home </a>
                   </li>
                   <li><a><i class="fa fa-user"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -75,9 +75,9 @@
                   </li>
                   <li><a><i class="fa fa-wrench"></i> Repuestos <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="listarrep"><i class = "fa fa-plus"></i>Lista</a></li>
-                      <li><a href="#"><i class = "fa fa-edit"></i>Actualizar</a></li>
-                      <li><a href="#"><i class = "fa fa-times"></i>Deshabilitar</a></li>
+                      <li><a href="listarreplit"><i class = "fa fa-plus"></i>Repuesto Litros</a></li>
+                      <li><a href="listarreparos"><i class = "fa fa-plus"></i>Repuesto Aros</a></li>
+                      <li><a href="listarrepgeneral"><i class = "fa fa-plus"></i>Repuesto General</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -111,7 +111,11 @@
         {% block content %}
         {% endblock %}
 
-
+        <footer>
+          <div class ="pull-right">
+            
+          </div>
+        </footer>
         
     <!-- jQuery -->
     <script src="{% static '/FrWork/admin_lte/vendors/jquery/dist/jquery.min.js' %}"></script>
@@ -155,4 +159,8 @@
     <script src="{% static '/FrWork/admin_lte/build/js/custom.min.js' %}"></script>
 	
   </body>
+
+  
 </html>
+
+

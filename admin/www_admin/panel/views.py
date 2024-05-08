@@ -28,16 +28,34 @@ def listar_numero_partes(request):
     datos_api = response.json()
     return render(request, 'gestionar-numero-partes/lista.html', {'datos': datos_api})
 
-def listarrep(request):
-    numpartes = NumPartes.objects.all()
-    datos = {'Repuestos': numpartes }
-    return render(request , "gestionar-repuestos/lista.html",datos)
+def listarreplit(request):
+    url_backend = 'https://tesis-motoware-back.onrender.com/consultar_repuestoLitros'
+    response = requests.get(url_backend)
+    datos_api = response.json()
+    return render(request , "gestionar-repuestos/listarlitros.html", {'datos': datos_api})
+
+def listarrepgeneral(request):
+    url_backend = 'https://tesis-motoware-back.onrender.com/consultar_repuesto_especifico'
+    response = requests.get(url_backend)
+    datos_api = response.json()
+    return render(request , "gestionar-repuestos/listargeneral.html", {'datos': datos_api})
 
 
-def visualizarrep(request):
-    numpartes = NumPartes.objects.all()
-    datos = {'Repuestos': numpartes }
-    return render(request, 'gestionar-repuestos/visualizar_detalles.html', datos)
+def listarreparos(request):
+    url_backend = 'https://tesis-motoware-back.onrender.com/consultar_repuestoAros'
+    response = requests.get(url_backend)
+    datos_api = response.json()
+    return render(request , "gestionar-repuestos/listararos.html", {'datos': datos_api})
+
+def visualizarreparos(request,repuesto_id):
+    repuesto_data = None
+    url_backend = f'https://tesis-motoware-back.onrender.com/obtener_repuestoAros/{repuesto_id}'
+    response = requests.get(url_backend)
+    if response.status_code == 200:
+        repuesto_data = response.json()
+    return render(request, 'gestionar-repuestos/visualizardetallesaro.html', {'repuesto_data' : repuesto_data})
+    
+
 
 
 def registrarrep(request):
