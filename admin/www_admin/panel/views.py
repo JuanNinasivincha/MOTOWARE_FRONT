@@ -96,7 +96,7 @@ def visualizarreplit(request,repuesto_id):
 def registrarrep(request):
     if request.method == 'POST':
         ID = request.POST.get('ID')
-        partesLi= request.POST.get('partesli')
+        partesLi= request.POST.get('partesLi')
         codigoMarca = request.POST.get('codigoMarca')
         gradoViscosidad = request.POST.get('gradoViscosidad')
         tipoMotor = request.POST.get('tipoMotor')
@@ -122,7 +122,7 @@ def registrarrep(request):
        
         response = requests.post(url_api_fastapi, json=data)
         if response.status_code == 200:
-           return redirect('listarlitros')
+           return redirect('listarreplit')
         else:
            return render(request, "gestionar-repuestos/listarlitros.html", {'error_message': 'Hubo un problema al registrar el repuesto litros.'})
     else:
@@ -164,6 +164,43 @@ def registrarreparo(request):
     else:
         return render(request, "gestionar-repuestos/addaro.html")
 
+
+def registrarrepgeneral(request):
+    if request.method == 'POST':
+        ID = request.POST.get('ID')
+        Nombre= request.POST.get('Nombre')
+        Marca = request.POST.get('Marca')
+        PaisProcedencia = request.POST.get('PaisProcedencia ')
+        UnidadEntrada= request.POST.get('UnidadEntrada')
+        FechaRegistro = request.POST.get('FechaRegistro')
+        IdLitros= request.POST.get('IdLitros')
+        IdAros = request.POST.get('IdAros')
+        Estado = request.POST.get('Estado')  
+        desGeneral = request.POST.get('desGeneral')                       
+
+        url_api_fastapi = 'https://tesis-motoware-back.onrender.com/Registrar_repuesto'
+         
+        data = {
+            "ID" : ID,
+            "Nombre": Nombre,
+            "Marca": Marca ,
+            "PaisProcedencia": PaisProcedencia,
+            "UnidadEntrada": UnidadEntrada,
+            "fechaRegistro": FechaRegistro,
+            "IdLitros": IdLitros,
+            "IdAros": IdAros,
+            "Estado": Estado,
+            "desGeneral": desGeneral    
+
+        }
+       
+        response = requests.post(url_api_fastapi, json=data)
+        if response.status_code == 200:
+           return redirect('listarrgeneral')
+        else:
+           return render(request, "gestionar-repuestos/listargeneral.html", {'error_message': 'Hubo un problema al registrar el repuesto litros.'})
+    else:
+        return render(request, "gestionar-repuestos/addrepuestogeneral.html")
 
 
 

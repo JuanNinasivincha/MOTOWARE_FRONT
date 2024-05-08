@@ -28,7 +28,6 @@
                     <th scope="col">Litros</th>
                     <th scope="col">Fecha de registro</th>
                     <th scope="col">Estado</th>
-                    <th scope="col">Descripción</th>
 
                     <th scope="col">Acciones</th> 
                 </tr>
@@ -45,7 +44,6 @@
                     <td>{{ dato.litros}}</td>
                     <td>{{ dato.fecharegistro}}</td>
                     <td>{{ dato.estado }}</td>
-                    <td>{{ dato.descripción}}</td>
                     <td>
                         <a href="{% url 'visualizarreplit' dato.id   %}" class="btn btn-info btn-sm">
                             <i class="fa fa-eye"></i>

@@ -28,7 +28,8 @@ urlpatterns = [
     path('visualizarreplit/<str:repuesto_id>',views.visualizarreplit,name = "visualizarreplit"),
 
     path('registrarrep',views.registrarrep,name = "registrarrep"),
-    path('registrarreparo',views.registrarreparo,name = "registrarreparo")
+    path('registrarreparo',views.registrarreparo,name = "registrarreparo"),
+    path('registrarrepgeneral',views.registrarrepgeneral,name = "registrarrepgeneral")
     
     
 

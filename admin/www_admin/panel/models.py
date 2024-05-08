@@ -21,6 +21,9 @@ class NumPartes(models.Model):
     numero_partes = models.IntegerField(unique=True)
 
 
+
+
+
     class Meta:
         db_table = 'usuarios'
         db_table = 'NumPartes'
