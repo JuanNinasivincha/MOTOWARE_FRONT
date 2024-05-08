@@ -124,3 +124,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 API_URL = "https://tesis-motoware-back.onrender.com/"
+
+LOGIN_REDIRECT_URL = '/'

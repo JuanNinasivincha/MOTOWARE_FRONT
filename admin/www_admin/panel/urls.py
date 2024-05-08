@@ -1,11 +1,13 @@
-from django.contrib import admin
-from django.urls import path
+
+from django.urls import path,include
 
 from django import views 
 from. import views 
 
+
 urlpatterns = [
 
+    path('accounts/',include('django.contrib.auth.urls')),
     path('',views.index,name = "index"),
     path('listar',views.listar,name = "listar"),
     path('agregar',views.agregar,name = "agregar"),
@@ -14,7 +16,7 @@ urlpatterns = [
 
 
     path('listarnum',views.listar_numero_partes,name = "listarnum"),
-    path('agregarnum',views.agregarnum,name = "agregarnum"),
+    path('agregarnum',views.agregarnumpartes,name = "agregarnum"),
 
     path('listarrep',views.listarrep,name = "listarrep"),
     path('visualizarrep',views.visualizarrep,name = "visualizarrep"),

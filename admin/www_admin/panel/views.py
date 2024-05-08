@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Usuarios, NumPartes
 from django.shortcuts import redirect
-from datetime import datetime
+import requests
 
 # Create your views here.
 
@@ -12,11 +12,9 @@ TEMPLATE_DIRS = (
 
 )
 
+
 def index(request):
-    return render(request , "index.html")
-
-
-
+    return render(request , "index_master.html")
 
 def listar(request):
     users = Usuarios.objects.all()
@@ -25,9 +23,10 @@ def listar(request):
 
 
 def listar_numero_partes(request):
-    numpartes = NumPartes.objects.all()
-    datos = {'Numero de partes': numpartes }
-    return render(request , "gestionar-numero-partes/lista.html",datos)
+    url_backend = 'https://tesis-motoware-back.onrender.com/consultar_número_de_Partes_especifico'
+    response = requests.get(url_backend)
+    datos_api = response.json()
+    return render(request, 'gestionar-numero-partes/lista.html', {'datos': datos_api})
 
 def listarrep(request):
     numpartes = NumPartes.objects.all()
@@ -71,18 +70,37 @@ def agregar(request):
     else :
         return render(request , "gestionar-usuarios/add.html")
 
-def agregarnum(request):
+from django.shortcuts import render, redirect
+import requests
+
+def agregarnumpartes(request):
     if request.method == 'POST':
-         if request.POST.get('dientes') and request.POST.get('aros') and request.POST.get('litros') and request.POST.get('numero_partes'):
-           parte = NumPartes()
-           parte.dientes = request.POST.get('dientes')
-           parte.aros = request.POST.get('aros')
-           parte.litros =  request.POST.get('litros')
-           parte.numero_partes =  request.POST.get('numero_partes')
-           parte.save()
+        id = request.POST.get('id')
+        nombre = request.POST.get('nombre')
+        dientes = request.POST.get('dientes')
+        aros = request.POST.get('aros')
+        litros = request.POST.get('litros')
+        fecharegistro = request.POST.get('fecharegistro')
+
+        url_api_fastapi = 'https://tesis-motoware-back.onrender.com/registrar_número_de_Partes'
+         
+        data = {
+            "ID" : id,
+            "Nombre": nombre,
+            "Dientes": dientes,
+            "Aros": aros,
+            "Litros": litros,
+            "fechaRegistro": fecharegistro
+        }
+       
+        response = requests.post(url_api_fastapi, json=data)
+        if response.status_code == 200:
            return redirect('listarnum')
-    else : 
+        else:
+           return render(request, "gestionar-numero-partes/add.html", {'error_message': 'Hubo un problema al registrar el número de partes.'})
+    else:
         return render(request, "gestionar-numero-partes/add.html")
+
 
 def actualizar(request):
     if request.method == 'POST':
