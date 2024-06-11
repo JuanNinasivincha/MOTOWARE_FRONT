@@ -1,0 +1,52 @@
+{% extends '../index_master.html' %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <h1 class="titulo">LISTA DE PROVEEDORES</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="input-group" style="max-width: 900px;">
+            <input type="text" class="form-control" placeholder="Buscar por RUC" aria-label="Buscar" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2"><i class="fa fa-search"></i></span>
+            </div>
+        </div>
+        
+        <a href="{% url 'agregarprov' %}" class="btn btn-primary mr-5">Registrar</a>
+
+    </div>
+    
+    <table class="table mt-3" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">RUC</th>
+                <th scope="col">Correo Electrónico</th>
+                <th scope="col">Número de contacto</th>
+                <th scope="col">Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dato in datos %}
+            <tr>
+                <th scope="row">{{ dato.id }}</th>
+                <td>{{ dato.nombre }}</td>
+                <td>{{ dato.ruc }}</td>
+                <td>{{ dato.gmail }}</td>
+                <td>{{ dato.númerocontacto }}</td>
+                <td>
+                    {% if dato.estado %}
+                        Habilitado
+                    {% else %}
+                        Deshabilitado
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+{% endblock %}

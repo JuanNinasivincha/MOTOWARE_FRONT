@@ -61,16 +61,12 @@
                   </li>
                   <li><a><i class="fa fa-user"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="listar"><i class = "fa fa-users"></i>Listar</a></li>
-                      <li><a href="agregar"><i class = "fa fa-user-plus"></i>Agregar</a></li>
-                      <li><a href="actualizar"><i class = "fa fa-edit"></i>Actualizar</a></li>
-                      <li><a href="eliminar"><i class = "fa fa-trash"></i>Eliminar</a></li>
+                      <li><a href="listar"><i class = "fa fa-users"></i>Lista de Usuarios</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-truck8"></i> Proveedores <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-user"></i> Proveedores <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="listarnum"><i class = "fa fa-plus"></i>Listar</a></li>
-                      <li><a href="agregarnum"><i class = "fa fa-edit"></i>Registrar</a></li>
+                      <li><a href="{% url 'listarproveedores' %}"><i class="fa fa-users"></i>Lista de Proveedores</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-wrench"></i> Repuestos <span class="fa fa-chevron-down"></span></a>
@@ -297,6 +293,7 @@
             
           </div>
         </footer>
+
         
     <!-- jQuery -->
     <script src="{% static '/FrWork/admin_lte/vendors/jquery/dist/jquery.min.js' %}"></script>
