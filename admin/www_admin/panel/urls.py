@@ -27,6 +27,10 @@ urlpatterns = [
     path('agregarstock', views.registrarstock, name = "agregarstock"),
 
 
-    path('listarsolicitudes', views.listar_solicitudes, name= "listarsolicitudes")
+    path('listarsolicitudes', views.listar_solicitudes, name= "listarsolicitudes"),
+
+
+    path('listarsalidas', views.listar_salidas, name = "listarsalidas"),
+    path('agregarsalida', views.registrarsalidas, name = "agregarsalida")
 
 ]

@@ -43,6 +43,7 @@ def registrarproveedor(request):
         estado = request.POST.get('estado')
 
         url_api_fastapi = 'https://tesis-back-motoware.onrender.com/registrar_proveedor'
+
          
         data = {
             "id" : id,
@@ -110,6 +111,48 @@ def listar_solicitudes(request):
     return render(request, 'gestionar-solicitudes/list.html', {'datos': datos_api})
 
 
+def listar_salidas(request):
+    url_backend = 'https://tesis-back-motoware.onrender.com/consultar_salidas'
+    response = requests.get(url_backend)
+    datos_api = response.json()
+    return render(request, 'movimientos/listamovimientos.html', {'datos': datos_api})
+
+def registrarsalidas(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        idstock= request.POST.get('idstock')
+        cantidadsaliente = request.POST.get('cantidadsaliente')
+        ubicacionstock= request.POST.get('ubicacionstock')
+        destino= request.POST.get('destino')
+        detallecliente = request.POST.get('detallecliente')
+        horasalida = request.POST.get('horasalida')
+        idsolicitud = request.POST.get('idsolicitud')
+
+        url_api_fastapi = 'https://tesis-back-motoware.onrender.com/registrar_salida'
+
+
+        data = {
+            "id" : id,
+            "idstock": idstock,
+            "cantidadsaliente": cantidadsaliente,
+            "ubicacionstock": ubicacionstock,
+            "destino": destino,
+            "detallecliente": detallecliente,
+            "horasalida": horasalida,
+            "idsolicitud": idsolicitud
+
+        }
+        
+        response = requests.post(url_api_fastapi, json=data)
+        print(f"Estado de respuesta de la API: {response.status_code}")
+        print(f"Contenido de respuesta de la API: {response.content}")
+        if response.status_code == 200:
+           return redirect('listarsalidas')
+        else:
+           return render(request, "movimientos/listamovimientos.html", {'error_message': 'Hubo un problema al registrar la salida.'})
+    else:
+        return render(request, "movimientos/realizarsalida.html")
+
 
 def listar_repuestos(request):
     url_backend = 'https://tesis-back-motoware.onrender.com/consultar_repuesto'
@@ -121,7 +164,11 @@ def listar_repuestos(request):
 
 def registrarrepuesto(request):
     if request.method == 'POST':
-        
+        estado_input = request.POST.get('estado')
+        if estado_input == 'True':
+            estado = True
+        else:
+            estado = False
         id = request.POST.get('id')
         nombre = request.POST.get('nombre')
         proveedor_id = request.POST.get('proveedor_id')
@@ -131,12 +178,20 @@ def registrarrepuesto(request):
         precio = request.POST.get('precio')
         etiqueta_nombre = request.POST.get('etiqueta_nombre')
         valores_atributos = request.POST.get('valores_atributos')
-        atributo1 = request.POST.get('atributo1')
-        atributo2 = request.POST.get('atributo2')
+        codigoMarca = request.POST.get('codigoMarca')
+        gradoViscosidad = request.POST.get('gradoViscosidad')
+        tipoMotor = request.POST.get('gradoViscosidad')
+        calidad = request.POST.get('tipoMotor')
+        litros = request.POST.get('litros')
+
         valores_atributos = {
-            "atributo1": atributo1,
-            "atributo2": atributo2
+            "codigoMarca": codigoMarca,
+            "gradoViscosidad": gradoViscosidad,
+            "tipoMotor": tipoMotor,
+            "calidad": calidad,
+            "litros": litros
         }
+    
         
         url_api_fastapi  = 'https://tesis-back-motoware.onrender.com/repuestos/'
        

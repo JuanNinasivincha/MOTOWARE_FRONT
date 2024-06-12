@@ -1,0 +1,54 @@
+{% extends '../index_master.html' %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <h1 class="titulo">Salidas</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="input-group" style="max-width: 900px;">
+            <input type="text" class="form-control" placeholder="Buscar por ID" aria-label="Buscar" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2"><i class="fa fa-search"></i></span>
+            </div>
+        </div>
+
+        <a href="agregarsalida" class="btn btn-primary mr-5">Registrar</a>
+
+    </div>
+    
+    <table class="table mt-3" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">ID Stock</th>
+                <th scope="col">Cantidad Saliente</th>
+                <th scope="col">Ubicación de Stock</th>
+                <th scope="col">Destino</th>
+                <th scope="col">Detalles del cliente</th>
+                <th scope="col">Hora de Salida</th>
+                <th scope="col">Solicitud</th> 
+            </tr>
+        </thead>
+        <tbody>
+            {% for dato in datos %}
+            <tr>
+                <th scope="row">{{ dato.id }}</th>
+                <td>{{ dato.idstock}}</td>
+                <td>{{ dato.cantidadsaliente}}</td>
+                <td>{{ dato.ubicacionstock}}</td>
+                <td>{{ dato.destino}}</td>
+                <td>{{ dato.detallecliente}}</td>
+                <td>{{ dato.horasalida}}</td>
+                <td>{{ dato.idsolicitud}}</td>
+                </td>
+            </tr>
+            {% endfor %}
+        
+            
+        </tbody>
+    </table>
+</div>
+
+
+
+
+{% endblock %}

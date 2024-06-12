@@ -1,0 +1,67 @@
+{% extends '../index_master.html' %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <h1 class="titulo">Registrar Salida</h1>
+    <form id="repuestoForm" method="post" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="id">ID:</label>
+                    <input type="number" class="form-control" id="id" name="id">
+                </div>
+                <div class="form-group">
+                    <label for="idstock">ID Stock:</label>
+                    <input type="text" class="form-control" id="idstock" name="idstock" >
+                </div>
+                <div class="form-group">
+                    <label for="cantidadsaliente">Cantidad Saliente:</label>
+                    <input type="number" class="form-control" id="cantidadsaliente" name="cantidadsaliente" >
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="ubicacionstock">Ubicación:</label>
+                    <input type="text" class="form-control" id="ubicacionstock" name="ubicacionstock">
+                </div>
+                
+                <div class="form-group">
+                    <label for="destino">Destino:</label>
+                    <input type="text" class="form-control" id="destino" name="destino">
+                </div>
+                <div class="form-group">
+                    <label for="detallecliente">Detalle del cliente:</label>
+                    <input type="text" class="form-control" id="detallecliente" name="detallecliente" >
+                </div>
+                <div class="form-group">
+                    <label for="horasalida">Hora de salida:</label>
+                    <input type="datetime-local" class="form-control" id="horasalida" name="horasalida">
+                </div>
+                <div class="form-group">
+                    <label for="idsolicitud">ID Solicitud:</label>
+                    <input type="number" class="form-control" id="idsolicitud" name="idsolicitud" >
+                </div>
+
+                <div class="form-group text-right">
+                    <button type="submit" class="btn btn-primary" id="btn-registrar">Registrar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<style>
+    .titulo {
+        font-size: 24px;
+        font-family: 'Arial', sans-serif;
+        color: #007bff;
+    }
+    .form-group.text-right {
+        text-align: right;
+    }
+</style>
+
+
+{% endblock %}
+

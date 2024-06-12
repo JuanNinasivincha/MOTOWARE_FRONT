@@ -17,7 +17,18 @@
                 </div>
                 <div class="form-group">
                     <label for="proveedor_id">Proveedor:</label>
-                    <input type="text" class="form-control" id="proveedor_id" name="proveedor_id">
+                    <select class="form-control" id="proveedor_id" name="proveedor_id">
+                        <option value="{{ request.session.id_proveedor }}">{{ request.session.id_proveedor }}</option>
+                       
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="precio">Precio:</label>
+                    <input type="number" step="0.01" class="form-control" id="precio" name="precio">
+                </div>
+                <div class="form-group">
+                    <label for="atributo1">Atributo 1:</label>
+                    <input type="text" class="form-control" id="atributo1" name="atributo1">
                 </div>
             </div>
             <div class="col-md-6">
@@ -31,24 +42,17 @@
                 </div>
                 <div class="form-group">
                     <label for="estado">Estado:</label>
-                    <input type="text" class="form-control" id="estado" name="estado">
-            
+                    <select class="form-control" id="estado" name="estado">
+                        <option value="True">Disponible</option>
+                        <option value="False">No disponible</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="precio">Precio:</label>
-                    <input type="number" class="form-control" id="precio" name="precio">
-                </div>
-                <div class="form-group">
-                    <label for="etiqueta_nombre">Nombre:</label>
+                    <label for="etiqueta_nombre">Etiqueta Nombre:</label>
                     <input type="text" class="form-control" id="etiqueta_nombre" name="etiqueta_nombre">
                 </div>
-
                 <div class="form-group">
-                    <label for="valores_atributos">Atributo 1:</label>
-                    <input type="text" class="form-control" id="atributo1" name="atributo1">
-                </div>
-                <div class="form-group">
-                    <label for="valores_atributos">Atributo 2:</label>
+                    <label for="atributo2">Atributo 2:</label>
                     <input type="text" class="form-control" id="atributo2" name="atributo2">
                 </div>
             </div>
@@ -66,6 +70,5 @@
         color: #007bff;
     }
 </style>
-
 
 {% endblock %}
