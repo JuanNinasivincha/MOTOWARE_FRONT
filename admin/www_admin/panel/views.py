@@ -65,6 +65,8 @@ def registrarproveedor(request):
 
 
 
+
+
 def listar_repuestos(request):
     url_backend = 'https://tesis-back-motoware.onrender.com/consultar_proveedor'
     response = requests.get(url_backend)
@@ -103,8 +105,6 @@ def agregar(request):
            return redirect('listar')
     else :
         return render(request , "gestionar-usuarios/add.html")
-
-
 
 
 
