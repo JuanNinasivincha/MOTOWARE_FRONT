@@ -24,6 +24,9 @@ urlpatterns = [
     path('agregarrep', views.registrarrepuesto, name = "agregarrep"),
 
     path('listarstock', views.listar_stock, name = "listarstock"),
-    path('agregarstock', views.registrarstock, name = "agregarstock")
+    path('agregarstock', views.registrarstock, name = "agregarstock"),
+
+
+    path('listarsolicitudes', views.listar_solicitudes, name= "listarsolicitudes")
 
 ]

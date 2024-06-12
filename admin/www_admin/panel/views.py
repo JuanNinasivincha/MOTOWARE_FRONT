@@ -102,6 +102,14 @@ def registrarstock(request):
            return render(request, "stock/listar_stock.html", {'error_message': 'Hubo un problema al registrar el stock.'})
     else:
         return render(request, "stock/add.html")
+    
+def listar_solicitudes(request):
+    url_backend = 'https://tesis-back-motoware.onrender.com/consultar_solicitudMecanico'
+    response = requests.get(url_backend)
+    datos_api = response.json()
+    return render(request, 'gestionar-solicitudes/list.html', {'datos': datos_api})
+
+
 
 def listar_repuestos(request):
     url_backend = 'https://tesis-back-motoware.onrender.com/consultar_repuesto'
