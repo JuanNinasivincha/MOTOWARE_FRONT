@@ -17,18 +17,19 @@
                 </div>
                 <div class="form-group">
                     <label for="proveedor_id">Proveedor:</label>
-                    <select class="form-control" id="proveedor_id" name="proveedor_id">
-                        <option value="{{ request.session.id_proveedor }}">{{ request.session.id_proveedor }}</option>
-                       
-                    </select>
+                    <input type="text" class="form-control" id="proveedor_id" name="proveedor_id">
                 </div>
                 <div class="form-group">
                     <label for="precio">Precio:</label>
                     <input type="number" step="0.01" class="form-control" id="precio" name="precio">
                 </div>
                 <div class="form-group">
-                    <label for="atributo1">Atributo 1:</label>
-                    <input type="text" class="form-control" id="atributo1" name="atributo1">
+                    <label for="codigoMarca">Código de Marca:</label>
+                    <input type="text" class="form-control" id="codigoMarca" name="codigoMarca">
+                </div>
+                <div class="form-group">
+                    <label for="GradoViscosidad">Grado de Viscosidad:</label>
+                    <input type="text" class="form-control" id="GradoViscosidad" name="GradoViscosidad">
                 </div>
             </div>
             <div class="col-md-6">
@@ -48,12 +49,23 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="etiqueta_nombre">Etiqueta Nombre:</label>
-                    <input type="text" class="form-control" id="etiqueta_nombre" name="etiqueta_nombre">
+                    <label for="etiqueta_nombre">Nombre:</label>
+                    <select class="form-control" id="etiqueta_nombre" name="etiqueta_nombre">
+                        <option value="Llanta">Llanta</option>
+                        <option value="Aceite">Aceite</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="atributo2">Atributo 2:</label>
-                    <input type="text" class="form-control" id="atributo2" name="atributo2">
+                    <label for="tipoMotor">Tipo de motor:</label>
+                    <input type="text" class="form-control" id="tipoMotor" name="tipoMotor">
+                </div>
+                <div class="form-group">
+                    <label for="calidad">Calidad:</label>
+                    <input type="text" class="form-control" id="calidad" name="calidad">
+                </div>
+                <div class="form-group">
+                    <label for="litros">Litros:</label>
+                    <input type="text" class="form-control" id="litros" name="litros">
                 </div>
             </div>
         </div>

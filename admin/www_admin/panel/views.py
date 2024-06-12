@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse,  HttpResponseNotFound
+from django.http import HttpResponse,  HttpResponseNotFound, JsonResponse
 from .models import Usuarios, NumPartes
 from django.shortcuts import redirect
 import requests
+
 
 
 TEMPLATE_DIRS = (
@@ -184,12 +185,14 @@ def registrarrepuesto(request):
         calidad = request.POST.get('tipoMotor')
         litros = request.POST.get('litros')
 
+    
+
         valores_atributos = {
             "codigoMarca": codigoMarca,
             "gradoViscosidad": gradoViscosidad,
             "tipoMotor": tipoMotor,
             "calidad": calidad,
-            "litros": litros
+            "litros": litros,
         }
     
         
