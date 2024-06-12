@@ -65,24 +65,11 @@ def registrarproveedor(request):
 
 
 
-
-
-    
-
-def visualizarrep(request,repuesto_id):
-  
-    url_backend = f'https://tesis-motoware-back.onrender.com/obtener_repuesto_id/{repuesto_id}'
-    try:
-        response = requests.get(url_backend)
-        repuesto_data = response.json()
-
-    except requests.RequestException as e:
-        print(f"Error al obtener los datos del repuesto: {e}")
-        return HttpResponseNotFound("No se pudo obtener el repuesto. Por favor, inténtalo de nuevo más tarde.")
-   
-    if repuesto_data is None:
-         return HttpResponseNotFound("No se encontró ningún repuesto con el ID proporcionado.")
-    return render(request, 'gestionar-repuestos/visualizarrepgeneral.html', {'repuesto_data' : repuesto_data})
+def listar_repuestos(request):
+    url_backend = 'https://tesis-back-motoware.onrender.com/consultar_proveedor'
+    response = requests.get(url_backend)
+    datos_api = response.json()
+    return render(request, 'gestionar-proveedores/lista.html', {'datos': datos_api})
 
 def visualizarreplit(request,repuesto_id):
     
@@ -98,8 +85,6 @@ def visualizarreplit(request,repuesto_id):
     if repuesto_data is None:
          return HttpResponseNotFound("No se encontró ningún repuesto con el ID proporcionado.")
     return render(request, 'gestionar-repuestos/visualizardetallelitros.html', {'repuesto_data' : repuesto_data})
-
-
 
 
 
