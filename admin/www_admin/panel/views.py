@@ -69,6 +69,9 @@ def listar_stock(request):
     return render(request, 'stock/listar_stock.html', {'datos': datos_api})
 
 
+
+
+
 def registrarstock(request):
     if request.method == 'POST':
         id = request.POST.get('id')
@@ -78,7 +81,7 @@ def registrarstock(request):
         estados= request.POST.get('estados')
         ubicacion = request.POST.get('ubicacion')
 
-        url_api_fastapi = 'https://tesis-back-motoware.onrender.com/consultar_stock'
+        url_api_fastapi = 'https://tesis-back-motoware.onrender.com/registrar_stock/'
          
         data = {
             "id" : id,
@@ -91,10 +94,12 @@ def registrarstock(request):
         }
        
         response = requests.post(url_api_fastapi, json=data)
+        print(f"Estado de respuesta de la API: {response.status_code}")
+        print(f"Contenido de respuesta de la API: {response.content}")
         if response.status_code == 200:
            return redirect('listarstock')
         else:
-           return render(request, "stock/listar_stock.html", {'error_message': 'Hubo un problema al registrar el proveedor.'})
+           return render(request, "stock/listar_stock.html", {'error_message': 'Hubo un problema al registrar el stock.'})
     else:
         return render(request, "stock/add.html")
 
