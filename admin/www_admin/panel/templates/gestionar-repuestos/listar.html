@@ -2,8 +2,7 @@
 
     {% block content %}
     <div class="right_col" role="main">
-        <h1 class="titulo">Lista de Repuestos(Lts)</h1>
-        <!-- Contenedor flex para alinear elementos -->
+        <h1 class="titulo">Lista de Repuestos</h1>
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div class="input-group" style="max-width: 900px;">
                 <input type="text" class="form-control" placeholder="Buscar por número de partes" aria-label="Buscar" aria-describedby="basic-addon2">
@@ -12,7 +11,7 @@
                 </div>
             </div>
     
-            <a href="{% url 'registrarrep' %}" class="btn btn-primary mr-5">Registrar</a>
+            <a href="{% url 'agregarrep' %}" class="btn btn-primary mr-5">Registrar</a>
 
         </div>
         
@@ -20,15 +19,12 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Número de Partes</th>
-                    <th scope="col">Código de marca</th>
-                    <th scope="col">Grado de viscosidad</th>
-                    <th scope="col">Tipo de motor</th>
-                    <th scope="col">Calidad</th>
-                    <th scope="col">Litros</th>
-                    <th scope="col">Fecha de registro</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Proveedor</th>
+                    <th scope="col">País de Procedencia</th>
+                    <th scope="col">Fecha de Registro</th>
                     <th scope="col">Estado</th>
-
+                    <th scope="col">Litros</th>
                     <th scope="col">Acciones</th> 
                 </tr>
             </thead>
@@ -36,16 +32,14 @@
                 {% for dato in datos %}
                 <tr>
                     <th scope="row">{{ dato.id }}</th>
-                    <td>{{ dato.partesli}}</td>
-                    <td>{{ dato.codigomarca}}</td>
-                    <td>{{ dato.gradoviscosidad}}</td>
-                    <td>{{ dato.tipomotor}}</td>
-                    <td>{{ dato.calidad}}</td>
-                    <td>{{ dato.litros}}</td>
+                    <td>{{ dato.nombre}}</td>
+                    <td>{{ dato.proveedor_id}}</td>
+                    <td>{{ dato.pais_procedencia}}</td>
                     <td>{{ dato.fecharegistro}}</td>
-                    <td>{{ dato.estado }}</td>
+                    <td>{{ dato.estado}}</td>
+                    <td>{{ dato.precio}}</td>
                     <td>
-                        <a href="{% url 'visualizarreplit' dato.id   %}" class="btn btn-info btn-sm">
+                        <a href="#" class="btn btn-info btn-sm">
                             <i class="fa fa-eye"></i>
                         </a>
                     </td>

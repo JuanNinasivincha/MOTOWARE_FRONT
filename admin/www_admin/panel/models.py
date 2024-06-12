@@ -37,7 +37,8 @@ class SolicitudRepuestos(models.Model):
     descripcion_detalles = models.TextField(null=True, blank=True)
     estado = models.CharField(max_length=10, choices=ESTADO_CHOICES, default='aprobado')
 
-
+    
+  
     class Meta:
         db_table = 'usuarios'
         db_table = 'NumPartes'

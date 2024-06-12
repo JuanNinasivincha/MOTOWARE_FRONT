@@ -4,7 +4,6 @@ from .models import Usuarios, NumPartes
 from django.shortcuts import redirect
 import requests
 
-# Create your views here.
 
 TEMPLATE_DIRS = (
 
@@ -68,10 +67,58 @@ def registrarproveedor(request):
 
 
 def listar_repuestos(request):
-    url_backend = 'https://tesis-back-motoware.onrender.com/consultar_proveedor'
+    url_backend = 'https://tesis-back-motoware.onrender.com/consultar_repuesto'
     response = requests.get(url_backend)
     datos_api = response.json()
-    return render(request, 'gestionar-proveedores/lista.html', {'datos': datos_api})
+    return render(request, 'gestionar-repuestos/listar.html', {'datos': datos_api})
+
+
+
+def registrarrepuesto(request):
+    if request.method == 'POST':
+        
+        id = request.POST.get('id')
+        nombre = request.POST.get('nombre')
+        proveedor_id = request.POST.get('proveedor_id')
+        pais_procedencia = request.POST.get('pais_procedencia')
+        fecharegistro = request.POST.get('fecharegistro')
+        estado = request.POST.get('estado')
+        precio = request.POST.get('precio')
+        etiqueta_nombre = request.POST.get('etiqueta_nombre')
+        valores_atributos = request.POST.get('valores_atributos')
+        atributo1 = request.POST.get('atributo1')
+        atributo2 = request.POST.get('atributo2')
+        valores_atributos = {
+            "atributo1": atributo1,
+            "atributo2": atributo2
+        }
+        
+        url_api_fastapi  = 'https://tesis-back-motoware.onrender.com/repuestos/'
+       
+
+
+        data = {
+            "id": id,
+            "nombre": nombre,
+            "proveedor_id": proveedor_id,
+            "pais_procedencia": pais_procedencia,
+            "fecharegistro": fecharegistro,
+            "estado": estado,
+            "precio": precio,
+            "etiqueta_nombre": etiqueta_nombre,
+            "valores_atributos": valores_atributos,
+        }
+        
+
+        response = requests.post(url_api_fastapi, json=data)
+        if response.status_code == 200:
+            return redirect('listarrep')
+        else:
+            print(response.text)  
+            return render(request, "gestionar-repuestos/listar.html", {'error_message': 'Hubo un problema al registrar el repuesto.'})
+    else:
+        return render(request, "gestionar-repuestos/add.html")
+
 
 def visualizarreplit(request,repuesto_id):
     
