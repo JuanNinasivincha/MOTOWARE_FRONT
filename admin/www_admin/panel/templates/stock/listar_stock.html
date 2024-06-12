@@ -1,0 +1,62 @@
+{% extends '../index_master.html' %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <h1 class="titulo">Stock Actual</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="input-group" style="max-width: 900px;">
+            <input type="text" class="form-control" placeholder="Buscar por número de partes" aria-label="Buscar" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2"><i class="fa fa-search"></i></span>
+            </div>
+        </div>
+
+        <a href="#" class="btn btn-primary mr-5">Registrar</a>
+
+    </div>
+    
+    <table class="table mt-3" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">ID Repuesto</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Ubicación</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dato in datos %}
+            <tr>
+                <th scope="row">{{ dato.id }}</th>
+                <td>{{ dato.idrepuesto}}</td>
+                <td>{{ dato.nombrerepuesto}}</td>
+                <td>{{ dato.cantidad}}</td>
+                <td>{{ dato.estados}}</td>
+                <td>{{ dato.ubicacion}}</td>
+                <td>
+                    
+                </td>
+                    
+                </td>
+            </tr>
+            {% endfor %}
+        
+            
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .titulo {
+        font-size: 24px; 
+        font-family: 'Arial', sans-serif; 
+        color: #007bff; 
+    }
+
+</style>
+
+
+{% endblock %}
+

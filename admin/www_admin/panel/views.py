@@ -62,9 +62,41 @@ def registrarproveedor(request):
     else:
         return render(request, "gestionar-proveedores/add.html")
 
+def listar_stock(request):
+    url_backend = 'https://tesis-back-motoware.onrender.com/consultar_stock'
+    response = requests.get(url_backend)
+    datos_api = response.json()
+    return render(request, 'stock/listar_stock.html', {'datos': datos_api})
 
 
+def registrarstock(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        idrepuesto= request.POST.get('idrepuesto')
+        nombrerepuesto = request.POST.get('nombrerepuesto')
+        cantidad = request.POST.get('cantidad')
+        estados= request.POST.get('estados')
+        ubicacion = request.POST.get('ubicacion')
 
+        url_api_fastapi = 'https://tesis-back-motoware.onrender.com/consultar_stock'
+         
+        data = {
+            "id" : id,
+            "idrepuesto": idrepuesto,
+            "nombrerepuesto": nombrerepuesto ,
+            "cantidad": cantidad,
+            "estados": estados,
+            "ubicacion": ubicacion,
+
+        }
+       
+        response = requests.post(url_api_fastapi, json=data)
+        if response.status_code == 200:
+           return redirect('listarstock')
+        else:
+           return render(request, "stock/listar_stock.html", {'error_message': 'Hubo un problema al registrar el proveedor.'})
+    else:
+        return render(request, "stock/add.html")
 
 def listar_repuestos(request):
     url_backend = 'https://tesis-back-motoware.onrender.com/consultar_repuesto'
