@@ -50,22 +50,34 @@
                 </div>
                 <div class="form-group">
                     <label for="etiqueta_nombre">Nombre:</label>
-                    <select class="form-control" id="etiqueta_nombre" name="etiqueta_nombre">
+                    <select class="form-control" id="etiqueta_nombre" name="etiqueta_nombre" onchange="toggleFields()">
                         <option value="Llanta">Llanta</option>
                         <option value="Aceite">Aceite</option>
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group aceite-fields">
                     <label for="tipoMotor">Tipo de motor:</label>
                     <input type="text" class="form-control" id="tipoMotor" name="tipoMotor">
                 </div>
-                <div class="form-group">
+                <div class="form-group aceite-fields">
                     <label for="calidad">Calidad:</label>
                     <input type="text" class="form-control" id="calidad" name="calidad">
                 </div>
-                <div class="form-group">
+                <div class="form-group aceite-fields">
                     <label for="litros">Litros:</label>
                     <input type="text" class="form-control" id="litros" name="litros">
+                </div>
+                <div class="form-group llanta-fields">
+                    <label for="medidas">Medidas:</label>
+                    <input type="text" class="form-control" id="medidas" name="medidas">
+                </div>
+                <div class="form-group llanta-fields">
+                    <label for="codigoLlanta">Código de Llanta:</label>
+                    <input type="text" class="form-control" id="codigoLlanta" name="codigoLlanta">
+                </div>
+                <div class="form-group llanta-fields">
+                    <label for="camara">Cámara:</label>
+                    <input type="text" class="form-control" id="camara" name="camara">
                 </div>
             </div>
         </div>
@@ -81,6 +93,30 @@
         font-family: 'Arial', sans-serif;
         color: #007bff;
     }
+    .aceite-fields,
+    .llanta-fields {
+        display: none;
+    }
 </style>
+
+<script>
+    function toggleFields() {
+        var etiqueta = document.getElementById('etiqueta_nombre').value;
+        var aceiteFields = document.querySelectorAll('.aceite-fields');
+        var llantaFields = document.querySelectorAll('.llanta-fields');
+
+        aceiteFields.forEach(function(field) {
+            field.style.display = etiqueta === 'Aceite' ? 'block' : 'none';
+        });
+
+        llantaFields.forEach(function(field) {
+            field.style.display = etiqueta === 'Llanta' ? 'block' : 'none';
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        toggleFields();
+    });
+</script>
 
 {% endblock %}
