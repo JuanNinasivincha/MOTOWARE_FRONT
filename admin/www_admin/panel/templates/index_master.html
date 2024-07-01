@@ -120,176 +120,291 @@
         
       
         <div class="right_col" role="main">
-          {% block content %}
-          <script src="{% static 'FrWork/admin_lte/vendors/Chart.js/dist/Chart.min.js' %}"></script>
-          <div class = "right-col" role = "main">
-    <div class="right_col text-center" role="main">
-        <h1>DASHBOARD</h1>
-        <div class="row">
-            <!-- Ventas por Mes -->
-            <div class="col-md-6 col-sm-6">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Ventas por Mes</h2>
-                        <div class="clearfix"></div>
+            {% block content %}
+            <script src="{% static 'FrWork/admin_lte/vendors/Chart.js/dist/Chart.min.js' %}"></script>
+            <div class="right-col" role="main">
+                <div class="right_col text-center" role="main">
+                    <div class="row">
+                        <!-- Ventas por Mes -->
+                        <div class="col-md-6 col-sm-6">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Ventas por Mes</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <canvas id="ventasPorMes"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tipos de Repuestos Vendidos -->
+                        <div class="col-md-6 col-sm-6">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Tipos de Repuestos Vendidos</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <canvas id="tiposRepuestos"></canvas>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="x_content">
-                        <canvas id="ventasPorMes"></canvas>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Ventas por Marca de Moto</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <canvas id="ventasPorMarca"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Niveles de Stock</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <canvas id="nivelesStock"></canvas>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- Tipos de Repuestos Vendidos -->
-            <div class="col-md-6 col-sm-6">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Tipos de Repuestos Vendidos</h2>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <canvas id="tiposRepuestos"></canvas>
-                    </div>
+              
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            // Helper function to create a gradient
+                            function createGradient(ctx, colorStart, colorEnd) {
+                                const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                                gradient.addColorStop(0, colorStart);
+                                gradient.addColorStop(1, colorEnd);
+                                return gradient;
+                            }
+        
+                            // Ventas por Mes
+                            const ventasPorMesCtx = document.getElementById('ventasPorMes').getContext('2d');
+                            const ventasPorMesGradient = createGradient(ventasPorMesCtx, 'rgba(54, 162, 235, 0.9)', 'rgba(54, 162, 235, 0.2)');
+                            new Chart(ventasPorMesCtx, {
+                                type: 'line',
+                                data: {
+                                    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                                    datasets: [{
+                                        label: 'Ventas (unidades)',
+                                        data: [30, 50, 40, 60, 70, 80, 90, 100, 110, 120, 130, 140],
+                                        backgroundColor: ventasPorMesGradient,
+                                        borderColor: 'rgba(54, 162, 235, 1)',
+                                        borderWidth: 2,
+                                        fill: true,
+                                        tension: 0.4,
+                                        pointStyle: 'circle',
+                                        pointRadius: 5,
+                                        pointHoverRadius: 7
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            labels: {
+                                                font: {
+                                                    size: 14
+                                                }
+                                            }
+                                        },
+                                        tooltip: {
+                                            backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                                            titleFont: { size: 16 },
+                                            bodyFont: { size: 14 },
+                                            footerFont: { size: 12 }
+                                        }
+                                    },
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true,
+                                            grid: {
+                                                display: true,
+                                                color: 'rgba(200, 200, 200, 0.2)'
+                                            }
+                                        },
+                                        x: {
+                                            grid: {
+                                                display: false
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+        
+                            // Tipos de Repuestos Vendidos
+                            const tiposRepuestosCtx = document.getElementById('tiposRepuestos').getContext('2d');
+                            new Chart(tiposRepuestosCtx, {
+                                type: 'bar',
+                                data: {
+                                    labels: ['Filtros', 'Aceites', 'Llantas', 'Bujías', 'Baterías'],
+                                    datasets: [{
+                                        label: 'Unidades Vendidas',
+                                        data: [120, 150, 180, 130, 170],
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.8)',
+                                            'rgba(54, 162, 235, 0.8)',
+                                            'rgba(255, 206, 86, 0.8)',
+                                            'rgba(75, 192, 192, 0.8)',
+                                            'rgba(153, 102, 255, 0.8)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)'
+                                        ],
+                                        borderWidth: 1,
+                                        barThickness: 30,
+                                        hoverBorderWidth: 2
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            labels: {
+                                                font: {
+                                                    size: 14
+                                                }
+                                            }
+                                        },
+                                        tooltip: {
+                                            backgroundColor: 'rgba(0,0,0,0.8)',
+                                            titleFont: { size: 16 },
+                                            bodyFont: { size: 14 },
+                                            footerFont: { size: 12 }
+                                        }
+                                    },
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true,
+                                            grid: {
+                                                display: true,
+                                                color: 'rgba(200, 200, 200, 0.2)'
+                                            }
+                                        },
+                                        x: {
+                                            grid: {
+                                                display: false
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+        
+                            // Ventas por Marca de Moto
+                            const ventasPorMarcaCtx = document.getElementById('ventasPorMarca').getContext('2d');
+                            new Chart(ventasPorMarcaCtx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: ['Yamaha', 'Honda', 'Suzuki', 'Kawasaki', 'Ducati'],
+                                    datasets: [{
+                                        label: 'Ventas',
+                                        data: [200, 300, 150, 100, 50],
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.8)',
+                                            'rgba(54, 162, 235, 0.8)',
+                                            'rgba(255, 206, 86, 0.8)',
+                                            'rgba(75, 192, 192, 0.8)',
+                                            'rgba(153, 102, 255, 0.8)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)'
+                                        ],
+                                        borderWidth: 1,
+                                        hoverOffset: 10
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            position: 'bottom',
+                                            labels: {
+                                                font: {
+                                                    size: 14
+                                                }
+                                            }
+                                        },
+                                        tooltip: {
+                                            backgroundColor: 'rgba(0,0,0,0.8)',
+                                            titleFont: { size: 16 },
+                                            bodyFont: { size: 14 },
+                                            footerFont: { size: 12 }
+                                        }
+                                    }
+                                }
+                            });
+        
+                            // Niveles de Stock
+                            const nivelesStockCtx = document.getElementById('nivelesStock').getContext('2d');
+                            const nivelesStockGradient = createGradient(nivelesStockCtx, 'rgba(75, 192, 192, 0.9)', 'rgba(75, 192, 192, 0.2)');
+                            new Chart(nivelesStockCtx, {
+                                type: 'bar',
+                                data: {
+                                    labels: ['Filtro de aceite', 'Bujía', 'Llanta trasera', 'Pastillas de freno', 'Filtro de aire'],
+                                    datasets: [{
+                                        label: 'Niveles de Stock',
+                                        data: [50, 70, 60, 80, 55],
+                                        backgroundColor: nivelesStockGradient,
+                                        borderColor: 'rgba(75, 192, 192, 1)',
+                                        borderWidth: 1,
+                                        barThickness: 30,
+                                        hoverBorderWidth: 2
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            labels: {
+                                                font: {
+                                                    size: 14
+                                                }
+                                            }
+                                        },
+                                        tooltip: {
+                                            backgroundColor: 'rgba(0,0,0,0.8)',
+                                            titleFont: { size: 16 },
+                                            bodyFont: { size: 14 },
+                                            footerFont: { size: 12 }
+                                        }
+                                    },
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true,
+                                            grid: {
+                                                display: true,
+                                                color: 'rgba(200, 200, 200, 0.2)'
+                                            }
+                                        },
+                                        x: {
+                                            grid: {
+                                                display: false
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        });
+                    </script>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6 col-sm-6">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Ventas por Marca de Moto</h2>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <canvas id="ventasPorMarca"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Niveles de Stock</h2>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <canvas id="nivelesStock"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-      
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            new Chart(document.getElementById('ventasPorMes'), {
-                type: 'line',
-                data: {
-                    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-                    datasets: [{
-                        label: 'Ventas (unidades)',
-                        data: [30, 50, 40, 60, 70, 80, 90, 100, 110, 120, 130, 140],
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-
-            new Chart(document.getElementById('tiposRepuestos'), {
-                type: 'bar',
-                data: {
-                    labels: ['Filtros', 'Aceites', 'Llantas', 'Bujías', 'Baterías'],
-                    datasets: [{
-                        label: 'Unidades Vendidas',
-                        data: [120, 150, 180, 130, 170],
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-    
-            // Ventas por Marca de Moto
-            new Chart(document.getElementById('ventasPorMarca'), {
-                type: 'pie',
-                data: {
-                    labels: ['Yamaha', 'Honda', 'Suzuki', 'Kawasaki', 'Ducati'],
-                    datasets: [{
-                        label: 'Ventas',
-                        data: [200, 300, 150, 100, 50],
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                }
-            });
-            new Chart(document.getElementById('nivelesStock'), {
-            type: 'bar',
-            data: {
-                labels: ['Filtro de aceite', 'Bujía', 'Llanta trasera', 'Pastillas de freno', 'Filtro de aire'], 
-                datasets: [{
-                    label: 'Niveles de Stock',
-                    data: [50, 70, 60, 80, 55], 
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true 
-            }
-        }
-    }
-});
-
-            
-        });
-    </script>
-
-</div>
+        
           
 
           {% endblock %}
