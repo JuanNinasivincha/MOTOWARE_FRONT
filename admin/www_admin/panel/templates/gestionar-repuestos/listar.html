@@ -1,67 +1,93 @@
-    {% extends '../index_master.html' %}
+{% extends '../index_master.html' %}
 
-    {% block content %}
-    <div class="right_col" role="main">
-        <h1 class="titulo">Lista de Repuestos</h1>
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <div class="input-group" style="max-width: 900px;">
-                <input type="text" class="form-control" placeholder="Buscar por nombre" aria-label="Buscar" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                    <span class="input-group-text" id="basic-addon2"><i class="fa fa-search"></i></span>
-                </div>
+{% block content %}
+<div class="right_col" role="main">
+    <h1 class="titulo">Lista de Repuestos</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="input-group" style="max-width: 900px;">
+            <input type="text" class="form-control" placeholder="Buscar por nombre" aria-label="Buscar" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2"><i class="fa fa-search"></i></span>
             </div>
-    
-            <a href="{% url 'agregarrep' %}" class="btn btn-primary mr-5">Registrar</a>
-
         </div>
-        
-        <table class="table mt-3" style="width: 100%; border-collapse: collapse;">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Proveedor</th>
-                    <th scope="col">País de Procedencia</th>
-                    <th scope="col">Fecha de Registro</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Acciones</th> 
-                </tr>
-            </thead>
-            <tbody>
-                {% for dato in datos %}
-                <tr>
-                    <th scope="row">{{ dato.id }}</th>
-                    <td>{{ dato.nombre}}</td>
-                    <td>{{ dato.proveedor_id}}</td>
-                    <td>{{ dato.pais_procedencia}}</td>
-                    <td>{{ dato.fecharegistro}}</td>
-                    <td>{% if dato.estado %}Disponible{% else %}No disponible{% endif %}</td>
-                    <td>{{ dato.precio}}</td>
-                    <td>
-                        <a href="#" class="btn btn-info btn-sm">
-                            <i class="fa fa-eye"></i>
-                        </a>
-                    </td>
-                        
-                    </td>
-                </tr>
-                {% endfor %}
-            
-                
-            </tbody>
-        </table>
+
+        <a href="{% url 'agregarrep' %}" class="btn btn-primary mr-5">Registrar</a>
     </div>
 
-    <style>
-        .titulo {
-            font-size: 24px; 
-            font-family: 'Arial', sans-serif; 
-            color: #007bff; 
-        }
-    
-    </style>
+    <table class="table mt-3" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Proveedor</th>
+                <th scope="col">País de Procedencia</th>
+                <th scope="col">Fecha de Registro</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Precio</th>
+                <th scope="col" class="text-center">Acciones</th> 
+            </tr>
+        </thead>
+        <tbody>
+            {% for dato in datos %}
+            <tr>
+                <th scope="row">{{ dato.id }}</th>
+                <td>{{ dato.nombre }}</td>
+                <td>{{ dato.proveedor_id }}</td>
+                <td>{{ dato.pais_procedencia }}</td>
+                <td>{{ dato.fecharegistro }}</td>
+                <td id="estado-{{ dato.id }}" class="{% if not dato.estado %}text-danger{% endif %}">
+                    {% if dato.estado %}Disponible{% else %}No disponible{% endif %}
+                </td>
+                <td>{{ dato.precio }}</td>
+                <td class="text-center"> 
+                    <a href="{% url 'actualizarrepuesto' dato.id %}" class="btn btn-warning btn-sm">
+                        <i class="fa fa-edit"></i> Actualizar
+                    </a>
+                    <button class="btn btn-danger btn-sm" onclick="confirmDisable('{{ dato.id }}', '{{ dato.nombre }}')">
+                        <i class="fa fa-ban"></i> Deshabilitar
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
+<!-- Modal de Confirmación -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Confirmación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Está seguro de deshabilitar el repuesto <span id="repuestoNombre"></span>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirmBtn">Deshabilitar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-    {% endblock %}
+<script>
+    function confirmDisable(repuestoId, repuestoNombre) {
+        $('#repuestoNombre').text(repuestoNombre);
+        $('#confirmModal').modal('show');
 
+        $('#confirmBtn').on('click', function() {
+            // Simulación de deshabilitación del repuesto
+            var estadoCell = $('#estado-' + repuestoId);
+            estadoCell.text('No disponible');
+            estadoCell.addClass('text-danger'); // Agregar clase para indicar estado no disponible
+
+            $('#confirmModal').modal('hide');
+        });
+    }
+</script>
+
+{% endblock %}

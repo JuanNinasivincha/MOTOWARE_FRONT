@@ -222,6 +222,67 @@ def registrarrepuesto(request):
     else:
         return render(request, "gestionar-repuestos/add.html")
 
+from django.shortcuts import render, redirect
+import requests
+
+def actualizar_repuesto(request, repuesto_id):
+   
+    url_api_fastapi = f'https://tesis-back-motoware.onrender.com/repuestos/{repuesto_id}'
+    response = requests.get(url_api_fastapi)
+    
+    if response.status_code == 200:
+        repuesto = response.json()  
+        if request.method == 'POST':
+            estado_input = request.POST.get('estado')
+            estado = True if estado_input == 'True' else False
+            
+            nombre = request.POST.get('nombre')
+            proveedor_id = request.POST.get('proveedor_id')
+            pais_procedencia = request.POST.get('pais_procedencia')
+            fecharegistro = request.POST.get('fecharegistro')
+            precio = request.POST.get('precio')
+            etiqueta_nombre = request.POST.get('etiqueta_nombre')
+            codigoMarca = request.POST.get('codigoMarca')
+            gradoViscosidad = request.POST.get('gradoViscosidad')
+            tipoMotor = request.POST.get('tipoMotor')
+            calidad = request.POST.get('calidad')
+            litros = request.POST.get('litros')
+            
+            valores_atributos = {
+                "codigoMarca": codigoMarca,
+                "gradoViscosidad": gradoViscosidad,
+                "tipoMotor": tipoMotor,
+                "calidad": calidad,
+                "litros": litros,
+            }
+            
+            data = {
+                "id": repuesto_id, 
+                "nombre": nombre,
+                "proveedor_id": proveedor_id,
+                "pais_procedencia": pais_procedencia,
+                "fecharegistro": fecharegistro,
+                "estado": estado,
+                "precio": precio,
+                "etiqueta_nombre": etiqueta_nombre,
+                "valores_atributos": valores_atributos,
+            }
+            
+           
+            put_response = requests.put(url_api_fastapi, json=data)
+            
+            if put_response.status_code == 200:
+                return redirect('listarrep')
+            else:
+                print(put_response.text)
+                return render(request, "gestionar-repuestos/actualizar.html", {'error_message': 'Hubo un problema al actualizar el repuesto.'})
+        
+       
+        return render(request, "gestionar-repuestos/actualizar.html", {'repuesto': repuesto})
+    else:
+        print(response.text)
+        return render(request, "gestionar-repuestos/listar.html", {'error_message': 'No se pudo obtener el repuesto para actualizar.'})
+
 
 def visualizarreplit(request,repuesto_id):
     

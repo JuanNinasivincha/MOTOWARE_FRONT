@@ -12,7 +12,6 @@
         </div>
         
         <a href="{% url 'agregarprov' %}" class="btn btn-primary mr-5">Registrar</a>
-
     </div>
     
     <table class="table mt-3" style="width: 100%; border-collapse: collapse;">
@@ -24,6 +23,7 @@
                 <th scope="col">Correo Electrónico</th>
                 <th scope="col">Número de contacto</th>
                 <th scope="col">Estado</th>
+                <th scope="col" style="text-align: center;">Acciones</th> 
             </tr>
         </thead>
         <tbody>
@@ -34,12 +34,16 @@
                 <td>{{ dato.ruc }}</td>
                 <td>{{ dato.gmail }}</td>
                 <td>{{ dato.númerocontacto }}</td>
-                <td>
+                <td id="estado-{{ dato.id }}">
                     {% if dato.estado %}
                         Habilitado
                     {% else %}
                         Deshabilitado
                     {% endif %}
+                </td>
+                <td class="text-center">
+                    <button class="btn btn-sm btn-warning btn-deshabilitar" data-id="{{ dato.id }}">Deshabilitar</button>
+                    <button class="btn btn-sm btn-success btn-habilitar" data-id="{{ dato.id }}">Habilitar</button>
                 </td>
             </tr>
             {% endfor %}
@@ -47,6 +51,53 @@
     </table>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.btn-deshabilitar').forEach(function(button) {
+            button.addEventListener('click', function() {
+                let id = this.getAttribute('data-id');
+                if (confirm('¿Estás seguro de deshabilitar este proveedor?')) {
+                    document.getElementById('estado-' + id).innerText = 'Deshabilitado';
+                 
+                }
+            });
+        });
 
+        document.querySelectorAll('.btn-habilitar').forEach(function(button) {
+            button.addEventListener('click', function() {
+                let id = this.getAttribute('data-id');
+                if (confirm('¿Estás seguro de habilitar este proveedor?')) {
+                    document.getElementById('estado-' + id).innerText = 'Habilitado';
+            
+                }
+            });
+        });
+    });
+</script>
+
+<style>
+    .btn-warning {
+        background-color: #f0ad4e;
+        border-color: #eea236;
+        color: #fff;
+    }
+    .btn-warning:hover {
+        background-color: #ec971f;
+        border-color: #d58512;
+    }
+    .btn-success {
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+        color: #fff;
+    }
+    .btn-success:hover {
+        background-color: #4cae4c;
+        border-color: #398439;
+    }
+    .table th, .table td {
+        vertical-align: middle;
+        text-align: center; 
+    }
+</style>
 
 {% endblock %}

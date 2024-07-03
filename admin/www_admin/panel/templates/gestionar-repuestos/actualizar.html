@@ -1,0 +1,212 @@
+{% extends '../index_master.html' %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <h1 class="titulo">Actualizar Repuesto</h1>
+    <form id="repuestoForm" method="post" onsubmit="updateRepuesto()">
+        {% csrf_token %}
+        <input type="hidden" id="id" name="id" value="{{ repuesto.id }}">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="nombre">
+                        <i class="fas fa-box"></i> Nombre:
+                    </label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" value="{{ repuesto.nombre }}">
+                </div>
+                <div class="form-group">
+                    <label for="proveedor_id">
+                        <i class=""></i> Proveedor:
+                    </label>
+                    <select class="form-control" id="proveedor_id" name="proveedor_id">
+                        <option value="Motul" {% if repuesto.proveedor_id == 'Motul' %} selected {% endif %}>Motul</option>
+                        <option value="Castrol" {% if repuesto.proveedor_id == 'Castrol' %} selected {% endif %}>Castrol</option>
+                        <option value="Timsun Perú" {% if repuesto.proveedor_id == 'Timsun Perú' %} selected {% endif %}>Timsun Perú</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="precio">
+                        <i class=""></i> Precio:
+                    </label>
+                    <input type="number" step="0.01" class="form-control" id="precio" name="precio" value="{{ repuesto.precio }}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="pais_procedencia">
+                        <i class=""></i> País de Procedencia:
+                    </label>
+                    <input type="text" class="form-control" id="pais_procedencia" name="pais_procedencia" value="{{ repuesto.pais_procedencia }}">
+                </div>
+                <div class="form-group">
+                    <label for="fecharegistro">
+                        <i class="fas fa-calendar-alt"></i> Fecha de Registro:
+                    </label>
+                    <input type="date" class="form-control" id="fecharegistro" name="fecharegistro" value="{{ repuesto.fecharegistro }}">
+                </div>
+                <div class="form-group">
+                    <label for="estado">
+                        <i class=""></i> Estado:
+                    </label>
+                    <select class="form-control" id="estado" name="estado">
+                        <option value="True" {% if repuesto.estado %} selected {% endif %}>Disponible</option>
+                        <option value="False" {% if not repuesto.estado %} selected {% endif %}>No disponible</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="etiqueta_nombre">
+                        <i class=""></i> Nombre:
+                    </label>
+                    <select class="form-control" id="etiqueta_nombre" name="etiqueta_nombre" onchange="toggleFields()">
+                        <option value="Llanta" {% if repuesto.etiqueta_nombre == 'Llanta' %} selected {% endif %}>Llanta</option>
+                        <option value="Aceite" {% if repuesto.etiqueta_nombre == 'Aceite' %} selected {% endif %}>Aceite</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <hr class="section-divider">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="subtitulo">Detalles del Repuesto</h2>
+                <div class="form-group aceite-fields" {% if repuesto.etiqueta_nombre != 'Aceite' %} style="display: none;" {% endif %}>
+                    <label for="GradoViscosidad">
+                        <i class=""></i> Grado de Viscosidad:
+                    </label>
+                    <input type="text" class="form-control" id="GradoViscosidad" name="GradoViscosidad" value="{{ repuesto.valores_atributos.gradoViscosidad }}">
+                </div>
+                <div class="form-group aceite-fields" {% if repuesto.etiqueta_nombre != 'Aceite' %} style="display: none;" {% endif %}>
+                    <label for="tipoMotor">
+                        <i class=""></i> Tipo de motor:
+                    </label>
+                    <input type="text" class="form-control" id="tipoMotor" name="tipoMotor" value="{{ repuesto.valores_atributos.tipoMotor }}">
+                </div>
+                <div class="form-group aceite-fields" {% if repuesto.etiqueta_nombre != 'Aceite' %} style="display: none;" {% endif %}>
+                    <label for="calidad">
+                        <i class=""></i> Calidad:
+                    </label>
+                    <input type="text" class="form-control" id="calidad" name="calidad" value="{{ repuesto.valores_atributos.calidad }}">
+                </div>
+                <div class="form-group aceite-fields" {% if repuesto.etiqueta_nombre != 'Aceite' %} style="display: none;" {% endif %}>
+                    <label for="litros">
+                        <i class=""></i> Litros:
+                    </label>
+                    <input type="text" class="form-control" id="litros" name="litros" value="{{ repuesto.valores_atributos.litros }}">
+                </div>
+                <div class="form-group llanta-fields" {% if repuesto.etiqueta_nombre != 'Llanta' %} style="display: none;" {% endif %}>
+                    <label for="">
+                        <i class=""></i> Código de Marca:
+                    </label>
+                    <input type="text" class="form-control" id="codigoMarca" name="codigoMarca" value="{{ repuesto.valores_atributos.codigoMarca }}">
+                </div>
+                <div class="form-group llanta-fields" {% if repuesto.etiqueta_nombre != 'Llanta' %} style="display: none;" {% endif %}>
+                    <label for="medidas">
+                        <i class=""></i> Medidas:
+                    </label>
+                    <input type="text" class="form-control" id="medidas" name="medidas" value="{{ repuesto.valores_atributos.medidas }}">
+                </div>
+                <div class="form-group llanta-fields" {% if repuesto.etiqueta_nombre != 'Llanta' %} style="display: none;" {% endif %}>
+                    <label for="codigoLlanta">
+                        <i class=""></i> Código de Llanta:
+                    </label>
+                    <input type="text" class="form-control" id="codigoLlanta" name="codigoLlanta" value="{{ repuesto.valores_atributos.codigoLlanta }}">
+                </div>
+                <div class="form-group llanta-fields" {% if repuesto.etiqueta_nombre != 'Llanta' %} style="display: none;" {% endif %}>
+                    <label for="camara">
+                        <i class=""></i> Cámara:
+                    </label>
+                    <input type="text" class="form-control" id="camara" name="camara" value="{{ repuesto.valores_atributos.camara }}">
+                </div>
+            </div>
+        </div>
+        <div class="form-group text-right">
+            <button type="submit" class="btn btn-primary" id="btn-actualizar">Actualizar</button>
+        </div>
+    </form>
+</div>
+
+<style>
+    .titulo {
+        font-size: 24px;
+        font-family: 'Arial', sans-serif;
+        color: #007bff;
+        margin-bottom: 20px;
+    }
+    .subtitulo {
+        font-size: 20px;
+        font-family: 'Arial', sans-serif;
+        color: #007bff;
+        margin-top: 20px;
+    }
+    .form-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+    .form-group label {
+        margin-right: 10px;
+        min-width: 150px;
+    }
+    .form-control {
+        flex: 1;
+        border-radius: 5px;
+        padding: 10px;
+        border: 1px solid #ced4da;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        border-radius: 5px;
+        padding: 10px 20px;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+    .section-divider {
+        border-top: 2px solid #007bff;
+        width: 100%;
+        margin: 20px 0;
+    }
+    .col-form-label i {
+        margin-right: 5px;
+    }
+    .aceite-fields,
+    .llanta-fields {
+        display: none;
+    }
+</style>
+
+<script>
+    function toggleFields() {
+        var etiqueta = document.getElementById('etiqueta_nombre').value;
+        var aceiteFields = document.querySelectorAll('.aceite-fields');
+        var llantaFields = document.querySelectorAll('.llanta-fields');
+
+        aceiteFields.forEach(function(field) {
+            field.style.display = etiqueta === 'Aceite' ? 'block' : 'none';
+        });
+
+        llantaFields.forEach(function(field) {
+            field.style.display = etiqueta === 'Llanta' ? 'block' : 'none';
+        });
+    }
+
+    function updateRepuesto() {
+        // Aquí puedes agregar lógica adicional si necesitas validar o procesar datos antes de enviar el formulario
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        toggleFields();
+
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById('fecharegistro').value = today;
+    });
+</script>
+
+{% endblock %}

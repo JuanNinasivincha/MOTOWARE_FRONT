@@ -3,35 +3,38 @@
 {% block content %}
 <div class="right_col" role="main">
     <h1 class="titulo">Registrar Nuevo Proveedor</h1>
-    <form method="post">
+    <form method="post" id="proveedorForm">
         {% csrf_token %}
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group" style="display: none;">
                     <label for="id">ID:</label>
                     <input type="text" class="form-control" id="id" name="id">
                 </div>
                 <div class="form-group">
                     <label for="ruc">RUC:</label>
-                    <input type="text" class="form-control" id="ruc" name="ruc">
+                    <input type="text" class="form-control" id="ruc" name="ruc" required>
+                    <div class="invalid-feedback">El RUC debe tener 11 dígitos.</div>
                 </div>
                 <div class="form-group">
                     <label for="númerocontacto">Número de contacto:</label>
-                    <input type="number" class="form-control" id="númerocontacto" name="númerocontacto">
+                    <input type="text" class="form-control" id="númerocontacto" name="númerocontacto" required>
+                    <div class="invalid-feedback">El número de contacto debe tener 9 dígitos.</div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre">
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
                 </div>
                 <div class="form-group">
                     <label for="gmail">Correo Electrónico:</label>
-                    <input type="email" class="form-control" id="gmail" name="gmail">
+                    <input type="email" class="form-control" id="gmail" name="gmail" required>
+                    <div class="invalid-feedback">Debe ser un correo electrónico válido.</div>
                 </div>
                 <div class="form-group">
                     <label for="estado">Estado:</label>
-                    <select class="form-control" id="estado" name="estado">
+                    <select class="form-control" id="estado" name="estado" required>
                         <option value="1">Habilitado</option>
                         <option value="0">Deshabilitado</option>
                     </select>
@@ -50,6 +53,93 @@
         font-family: 'Arial', sans-serif;
         color: #007bff;
     }
+    .invalid-feedback {
+        display: none;
+        color: red;
+    }
+    .is-invalid + .invalid-feedback {
+        display: block;
+    }
 </style>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("id").value = Math.floor(Math.random() * 1000000);
+
+        const ruc = document.getElementById("ruc");
+        const númeroContacto = document.getElementById("númerocontacto");
+        const email = document.getElementById("gmail");
+
+        ruc.addEventListener("input", function() {
+            if (ruc.value.length !== 11 || isNaN(ruc.value)) {
+                ruc.classList.add("is-invalid");
+            } else {
+                ruc.classList.remove("is-invalid");
+            }
+        });
+
+        númeroContacto.addEventListener("input", function() {
+            if (númeroContacto.value.length !== 9 || isNaN(númeroContacto.value)) {
+                númeroContacto.classList.add("is-invalid");
+            } else {
+                númeroContacto.classList.remove("is-invalid");
+            }
+        });
+
+        email.addEventListener("input", function() {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email.value)) {
+                email.classList.add("is-invalid");
+            } else {
+                email.classList.remove("is-invalid");
+            }
+        });
+
+        const requiredFields = document.querySelectorAll("#proveedorForm input[required], #proveedorForm select[required]");
+        requiredFields.forEach(function(field) {
+            field.addEventListener("input", function() {
+                if (!field.value) {
+                    field.classList.add("is-invalid");
+                } else {
+                    field.classList.remove("is-invalid");
+                }
+            });
+        });
+
+        document.getElementById("proveedorForm").addEventListener("submit", function(event) {
+            let valid = true;
+
+            requiredFields.forEach(function(field) {
+                if (!field.value) {
+                    field.classList.add("is-invalid");
+                    valid = false;
+                } else {
+                    field.classList.remove("is-invalid");
+                }
+            });
+
+            // Additional final checks to ensure the fields have valid data
+            if (ruc.value.length !== 11 || isNaN(ruc.value)) {
+                ruc.classList.add("is-invalid");
+                valid = false;
+            }
+
+            if (númeroContacto.value.length !== 9 || isNaN(númeroContacto.value)) {
+                númeroContacto.classList.add("is-invalid");
+                valid = false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email.value)) {
+                email.classList.add("is-invalid");
+                valid = false;
+            }
+
+            if (!valid) {
+                event.preventDefault();
+                alert("Todos los campos deben ser rellenados correctamente.");
+            }
+        });
+    });
+</script>
 {% endblock %}
