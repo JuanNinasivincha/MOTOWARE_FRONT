@@ -7,7 +7,7 @@
         {% csrf_token %}
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group" style="display: none;">
                     <label for="id">ID:</label>
                     <input type="text" class="form-control" id="id" name="id" required>
                 </div>
@@ -58,8 +58,17 @@
 </style>
 
 <script>
+    function generateRandomID() {
+        return Math.floor(Math.random() * 1000000) + 1; 
+    }
+
     function validateForm() {
         const form = document.getElementById('repuestoForm');
+        const idField = document.getElementById('id');
+        if (!idField.value) {
+            idField.value = generateRandomID();
+        }
+
         const inputs = form.querySelectorAll('input[required], select[required]');
         for (let input of inputs) {
             if (!input.value) {
@@ -69,6 +78,9 @@
         }
         return true;
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('id').value = generateRandomID();
+    });
 </script>
 {% endblock %}
-

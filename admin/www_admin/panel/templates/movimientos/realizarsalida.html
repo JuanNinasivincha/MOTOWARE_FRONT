@@ -7,17 +7,21 @@
         {% csrf_token %}
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group" style="display: none;">
                     <label for="id">ID:</label>
                     <input type="number" class="form-control" id="id" name="id">
                 </div>
                 <div class="form-group">
                     <label for="idstock">ID Stock:</label>
-                    <input type="text" class="form-control" id="idstock" name="idstock" >
+                    <input type="text" class="form-control" id="idstock" name="idstock">
                 </div>
                 <div class="form-group">
                     <label for="cantidadsaliente">Cantidad Saliente:</label>
-                    <input type="number" class="form-control" id="cantidadsaliente" name="cantidadsaliente" >
+                    <input type="number" class="form-control" id="cantidadsaliente" name="cantidadsaliente">
+                </div>
+                <div class="form-group">
+                    <label for="detallecliente">Detalle del cliente:</label>
+                    <input type="text" class="form-control" id="detallecliente" name="detallecliente">
                 </div>
             </div>
             <div class="col-md-6">
@@ -25,14 +29,9 @@
                     <label for="ubicacionstock">Ubicación:</label>
                     <input type="text" class="form-control" id="ubicacionstock" name="ubicacionstock">
                 </div>
-                
                 <div class="form-group">
                     <label for="destino">Destino:</label>
                     <input type="text" class="form-control" id="destino" name="destino">
-                </div>
-                <div class="form-group">
-                    <label for="detallecliente">Detalle del cliente:</label>
-                    <input type="text" class="form-control" id="detallecliente" name="detallecliente" >
                 </div>
                 <div class="form-group">
                     <label for="horasalida">Hora de salida:</label>
@@ -40,7 +39,7 @@
                 </div>
                 <div class="form-group">
                     <label for="idsolicitud">ID Solicitud:</label>
-                    <input type="number" class="form-control" id="idsolicitud" name="idsolicitud" >
+                    <input type="number" class="form-control" id="idsolicitud" name="idsolicitud">
                 </div>
 
                 <div class="form-group text-right">
@@ -62,6 +61,33 @@
     }
 </style>
 
+<script>
+    function generateRandomID() {
+        return Math.floor(Math.random() * 1000000) + 1; 
+    }
 
+    function validateForm() {
+        const form = document.getElementById('repuestoForm');
+        const idField = document.getElementById('id');
+
+        if (!idField.value) {
+            idField.value = generateRandomID();
+        }
+
+        const inputs = form.querySelectorAll('input[required], select[required]');
+        for (let input of inputs) {
+            if (!input.value) {
+                alert('Todos los campos son requeridos');
+                return false;
+            }
+        }
+        return true;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('id').value = generateRandomID();
+    });
+</script>
 {% endblock %}
+
 

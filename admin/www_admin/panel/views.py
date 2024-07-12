@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse,  HttpResponseNotFound, JsonResponse
-from .models import Usuarios, NumPartes
+from .models import Usuarios
 from django.shortcuts import redirect
 import requests
-
-
 
 TEMPLATE_DIRS = (
 
@@ -16,24 +14,29 @@ def redirect_to_login(request):
     return redirect('login')
 
 
+
 def login(request):
     return render(request , "registration/login.html")
 
 def index(request):
     return render(request , "index_master.html")
 
+#USUARIOS
 def listar(request):
     users = Usuarios.objects.all()
     datos = {'usuarios': users }
     return render(request , "gestionar-usuarios/lista.html",datos)
 
 
+#PROVEEDORES
 def listar_proveedores(request):
     url_backend = 'https://tesis-back-motoware.onrender.com/consultar_proveedor'
     response = requests.get(url_backend)
     datos_api = response.json()
     return render(request, 'gestionar-proveedores/lista.html', {'datos': datos_api})
 
+
+#PROVEEDORES
 def registrarproveedor(request):
     if request.method == 'POST':
         id = request.POST.get('id')
@@ -63,7 +66,10 @@ def registrarproveedor(request):
            return render(request, "gestionar-proveedores/lista.html", {'error_message': 'Hubo un problema al registrar el proveedor.'})
     else:
         return render(request, "gestionar-proveedores/add.html")
+    
 
+
+#STOCK
 def listar_stock(request):
     url_backend = 'https://tesis-back-motoware.onrender.com/consultar_stock'
     response = requests.get(url_backend)
@@ -71,9 +77,7 @@ def listar_stock(request):
     return render(request, 'stock/listar_stock.html', {'datos': datos_api})
 
 
-
-
-
+#STOCK
 def registrarstock(request):
     if request.method == 'POST':
         id = request.POST.get('id')
@@ -105,6 +109,7 @@ def registrarstock(request):
     else:
         return render(request, "stock/add.html")
     
+#SOLICITUDES 
 def listar_solicitudes(request):
     url_backend = 'https://tesis-back-motoware.onrender.com/consultar_solicitudMecanico'
     response = requests.get(url_backend)
@@ -112,12 +117,14 @@ def listar_solicitudes(request):
     return render(request, 'gestionar-solicitudes/list.html', {'datos': datos_api})
 
 
+#SALIDAS
 def listar_salidas(request):
     url_backend = 'https://tesis-back-motoware.onrender.com/consultar_salidas'
     response = requests.get(url_backend)
     datos_api = response.json()
     return render(request, 'movimientos/listamovimientos.html', {'datos': datos_api})
 
+#SALIDAS
 def registrarsalidas(request):
     if request.method == 'POST':
         id = request.POST.get('id')
@@ -155,6 +162,7 @@ def registrarsalidas(request):
         return render(request, "movimientos/realizarsalida.html")
 
 
+#REPUESTOS
 def listar_repuestos(request):
     url_backend = 'https://tesis-back-motoware.onrender.com/consultar_repuesto'
     response = requests.get(url_backend)
@@ -162,7 +170,7 @@ def listar_repuestos(request):
     return render(request, 'gestionar-repuestos/listar.html', {'datos': datos_api})
 
 
-
+#REPUESTOS
 def registrarrepuesto(request):
     if request.method == 'POST':
         estado_input = request.POST.get('estado')
@@ -221,10 +229,8 @@ def registrarrepuesto(request):
             return render(request, "gestionar-repuestos/listar.html", {'error_message': 'Hubo un problema al registrar el repuesto.'})
     else:
         return render(request, "gestionar-repuestos/add.html")
-
-from django.shortcuts import render, redirect
-import requests
-
+    
+#REPUESTOS
 def actualizar_repuesto(request, repuesto_id):
    
     url_api_fastapi = f'https://tesis-back-motoware.onrender.com/repuestos/{repuesto_id}'
@@ -284,25 +290,11 @@ def actualizar_repuesto(request, repuesto_id):
         return render(request, "gestionar-repuestos/listar.html", {'error_message': 'No se pudo obtener el repuesto para actualizar.'})
 
 
-def visualizarreplit(request,repuesto_id):
-    
-    url_backend = f'https://tesis-motoware-back.onrender.com/obtener_repuestoLitros/{repuesto_id}'
-    try:
-        response = requests.get(url_backend)
-        repuesto_data = response.json()
-
-    except requests.RequestException as e:
-        print(f"Error al obtener los datos del repuesto: {e}")
-        return HttpResponseNotFound("No se pudo obtener el repuesto. Por favor, inténtalo de nuevo más tarde.")
-   
-    if repuesto_data is None:
-         return HttpResponseNotFound("No se encontró ningún repuesto con el ID proporcionado.")
-    return render(request, 'gestionar-repuestos/visualizardetallelitros.html', {'repuesto_data' : repuesto_data})
 
 
 
 
-
+#USUARIO
 def agregar(request):
     if request.method == 'POST':
         if request.POST.get('nombre') and request.POST.get('apellido') and request.POST.get('correo') and request.POST.get('telefono') and request.POST.get('telefono') and request.POST.get('fecha_nacimiento'):
@@ -318,8 +310,7 @@ def agregar(request):
         return render(request , "gestionar-usuarios/add.html")
 
 
-
-
+#USUARIO
 def actualizar(request):
     if request.method == 'POST':
         if request.POST.get('id') and request.POST.get('nombre') and request.POST.get('apellido') and request.POST.get('correo') and request.POST.get('telefono') and request.POST.get('telefono') and request.POST.get('fecha_nacimiento'):
@@ -344,6 +335,7 @@ def actualizar(request):
         return render(request , "gestionar-usuarios/update.html",datos)
 
 
+#USUARIO
 def eliminar(request):
     if request.method == 'POST':
         if request.POST.get('id'):

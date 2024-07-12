@@ -11,27 +11,28 @@ urlpatterns = [
 
     path('', views.login, name = "login"),
     path('listar',views.listar,name = "listar"),
-    path('agregar',views.agregar,name = "agregar"),
-    path('actualizar',views.actualizar,name = "actualizar"),
-    path('eliminar',views.eliminar,name = "eliminar"),
+    path('agregar',views.agregar,name = "agregar"),#USUARIOS
+    path('actualizar',views.actualizar,name = "actualizar"),#USUARIOS
+    path('eliminar',views.eliminar,name = "eliminar"),#USUARIOS
     path('login' , views.index , name = "index" ),
 
 
-    path('listarprov',views.listar_proveedores,name = "listarproveedores"),
-    path('agregarprov', views.registrarproveedor, name = "agregarprov"),
 
-    path('listarrep', views.listar_repuestos, name = "listarrep"),
-    path('agregarrep', views.registrarrepuesto, name = "agregarrep"),
-    path('actualizarrepuesto/<int:repuesto_id>/', views.actualizar_repuesto, name="actualizarrepuesto"),
+    path('listarprov',views.listar_proveedores,name = "listarproveedores"),#PROVEEDORES
+    path('agregarprov', views.registrarproveedor, name = "agregarprov"),#PROVEEDORES
 
-    path('listarstock', views.listar_stock, name = "listarstock"),
-    path('agregarstock', views.registrarstock, name = "agregarstock"),
+    path('listarrep', views.listar_repuestos, name = "listarrep"),#REPUESTOS
+    path('agregarrep', views.registrarrepuesto, name = "agregarrep"),#REPUESTOS
+    path('actualizarrepuesto/<int:repuesto_id>/', views.actualizar_repuesto, name="actualizarrepuesto"),#REPUESTOS
 
-
-    path('listarsolicitudes', views.listar_solicitudes, name= "listarsolicitudes"),
+    path('listarstock', views.listar_stock, name = "listarstock"),#STOCK
+    path('agregarstock', views.registrarstock, name = "agregarstock"),#STOCK
 
 
-    path('listarsalidas', views.listar_salidas, name = "listarsalidas"),
-    path('agregarsalida', views.registrarsalidas, name = "agregarsalida")
+    path('listarsolicitudes', views.listar_solicitudes, name= "listarsolicitudes"),#SOLICITUDES
+
+
+    path('listarsalidas', views.listar_salidas, name = "listarsalidas"),#SALIDAS
+    path('agregarsalida', views.registrarsalidas, name = "agregarsalida")#SALIDAS
 
 ]
