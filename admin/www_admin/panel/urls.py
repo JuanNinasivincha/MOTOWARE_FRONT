@@ -33,6 +33,9 @@ urlpatterns = [
 
 
     path('listarsalidas', views.listar_salidas, name = "listarsalidas"),#SALIDAS
-    path('agregarsalida', views.registrarsalidas, name = "agregarsalida")#SALIDAS
+    path('agregarsalida', views.registrarsalidas, name = "agregarsalida"),#SALIDAS
+
+
+    path('listarpedidos', views.listar_pedidos, name = "listarpedidos")#PEDIDOS
 
 ]

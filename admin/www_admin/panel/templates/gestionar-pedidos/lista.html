@@ -1,0 +1,68 @@
+{% extends '../index_master.html' %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <h1 class="titulo">HISTORIAL DE PEDIDOS</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="input-group" style="max-width: 900px;">
+            <input type="text" class="form-control" placeholder="Buscar por ID" aria-label="Buscar" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2"><i class="fa fa-search"></i></span>
+            </div>
+        </div>
+    </div>
+    
+    <table class="table mt-3" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre Proveedor</th>
+                <th scope="col">Fecha del pedido emitida</th>
+                <th scope="col">Estado del pedido</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dato in datos %}
+            <tr>
+                <th scope="row">{{ dato.id }}</th>
+                <td>{{ dato.nombre }}</td>
+                <td>{{ dato.fecha_pedido }}</td>
+                <td>
+                    {% if dato.estado %}
+                        Habilitado
+                    {% else %}
+                        Deshabilitado
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .btn-warning {
+        background-color: #f0ad4e;
+        border-color: #eea236;
+        color: #fff;
+    }
+    .btn-warning:hover {
+        background-color: #ec971f;
+        border-color: #d58512;
+    }
+    .btn-success {
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+        color: #fff;
+    }
+    .btn-success:hover {
+        background-color: #4cae4c;
+        border-color: #398439;
+    }
+    .table th, .table td {
+        vertical-align: middle;
+        text-align: center; 
+    }
+</style>
+
+{% endblock %}

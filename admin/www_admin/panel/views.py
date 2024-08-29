@@ -349,5 +349,17 @@ def eliminar(request):
         return render(request , "gestionar-usuarios/eliminar.html",datos) 
     
 
+#PEDIDOS
+def listar_pedidos(request):
+    datos_simulados = [
+        {'id': 1, 'nombre': 'Proveedor A', 'fecha_pedido': '01/08/2024', 'estado': True},
+        {'id': 2, 'nombre': 'Proveedor B', 'fecha_pedido': '02/08/2024', 'estado': False},
+        {'id': 3, 'nombre': 'Proveedor C', 'fecha_pedido': '03/08/2024', 'estado': True},
+        {'id': 4, 'nombre': 'Proveedor D', 'fecha_pedido': '04/08/2024', 'estado': False},
+        {'id': 5, 'nombre': 'Proveedor E', 'fecha_pedido': '05/08/2024', 'estado': True},
+    ]
+    
+    return render(request, 'gestionar-pedidos/lista.html', {'datos': datos_simulados})
+
 
 
