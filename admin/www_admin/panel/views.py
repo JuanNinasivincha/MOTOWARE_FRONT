@@ -352,14 +352,24 @@ def eliminar(request):
 #PEDIDOS
 def listar_pedidos(request):
     datos_simulados = [
-        {'id': 1, 'nombre': 'Proveedor A', 'fecha_pedido': '01/08/2024', 'estado': True},
-        {'id': 2, 'nombre': 'Proveedor B', 'fecha_pedido': '02/08/2024', 'estado': False},
-        {'id': 3, 'nombre': 'Proveedor C', 'fecha_pedido': '03/08/2024', 'estado': True},
-        {'id': 4, 'nombre': 'Proveedor D', 'fecha_pedido': '04/08/2024', 'estado': False},
-        {'id': 5, 'nombre': 'Proveedor E', 'fecha_pedido': '05/08/2024', 'estado': True},
+        {'id': 1, 'nombre': 'Motul', 'fecha_pedido': '01/08/2024', 'estado': 'Aceptado'},
+        {'id': 2, 'nombre': 'Spartan', 'fecha_pedido': '02/08/2024', 'estado': 'Entregado'},
+
+
+        {'id': 3, 'nombre': 'Vortex', 'fecha_pedido': '03/08/2024', 'estado': 'Entregado'},
+        {'id': 4, 'nombre': 'Motul', 'fecha_pedido': '04/08/2024', 'estado': 'Entregado'},
+        {'id': 5, 'nombre': 'Osram', 'fecha_pedido': '05/08/2024', 'estado': 'Entregado'},
     ]
     
     return render(request, 'gestionar-pedidos/lista.html', {'datos': datos_simulados})
 
 
+def listar_catalogo_proveedores(request):
+    datos_simulados = [
+        {'id': 1, 'nombre': 'Aceite R34', 'precio_unitario': 58, 'pais_procedencia': 'China'},
+        {'id': 2, 'nombre': 'Aro RTOID', 'precio_unitario': 40, 'pais_procedencia': 'China'},
+        {'id': 3, 'nombre': 'Faro Verde Lt43', 'precio_unitario': 25, 'pais_procedencia': 'Corea'},
+    ]
+    
+    return render(request, 'gestionar-catalogo-proveedores/lista.html', {'datos': datos_simulados})
 

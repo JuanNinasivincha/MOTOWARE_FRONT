@@ -36,6 +36,7 @@ urlpatterns = [
     path('agregarsalida', views.registrarsalidas, name = "agregarsalida"),#SALIDAS
 
 
-    path('listarpedidos', views.listar_pedidos, name = "listarpedidos")#PEDIDOS
+    path('listarpedidos', views.listar_pedidos, name = "listarpedidos"),#PEDIDOS
 
+    path('listarcatalogo', views.listar_catalogo_proveedores, name = "listarcatalogo")#CATALOGO DE PROVEEDORES
 ]

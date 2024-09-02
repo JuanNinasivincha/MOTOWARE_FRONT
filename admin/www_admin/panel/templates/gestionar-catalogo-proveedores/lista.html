@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="right_col" role="main">
-    <h1 class="titulo">HISTORIAL DE PEDIDOS</h1>
+    <h1 class="titulo">CATÁLOGO DE PROVEEDORES</h1>
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div class="input-group" style="max-width: 900px;">
             <input type="text" class="form-control" placeholder="Buscar por ID" aria-label="Buscar" aria-describedby="basic-addon2">
@@ -16,9 +16,9 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Nombre Proveedor</th>
-                <th scope="col">Fecha del pedido emitida</th>
-                <th scope="col">Estado del pedido</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio Unitario</th>
+                <th scope="col">País de Procedencia</th>
             </tr>
         </thead>
         <tbody>
@@ -26,8 +26,8 @@
             <tr>
                 <th scope="row">{{ dato.id }}</th>
                 <td>{{ dato.nombre }}</td>
-                <td>{{ dato.fecha_pedido }}</td>
-                <td>{{dato.estado}}</td>
+                <td>{{ dato.precio_unitario }}</td>
+                <td>{{dato.pais_procedencia}}</td>
             </tr>
             {% endfor %}
         </tbody>
